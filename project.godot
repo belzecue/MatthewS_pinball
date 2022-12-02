@@ -29,6 +29,11 @@ window/size/viewport_height=900
 
 enabled=PackedStringArray("res://addons/fps_counter/plugin.cfg", "res://addons/godot-console/console/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
 [input]
 
 console_toggle={
