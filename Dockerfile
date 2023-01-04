@@ -28,8 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 ARG GODOT_VERSION="4.0"
-ARG RELEASE_NAME="beta9"
-ARG SUBDIR="beta9"
+ARG RELEASE_NAME="beta10"
+ARG SUBDIR="beta10"
 
 RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${SUBDIR}/Godot_v${GODOT_VERSION}-${RELEASE_NAME}_export_templates.tpz
 RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${SUBDIR}/Godot_v${GODOT_VERSION}-${RELEASE_NAME}_linux.x86_64.zip
