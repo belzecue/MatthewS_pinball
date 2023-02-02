@@ -7,4 +7,4 @@ variables:
   # Stable is used for any public update that is not a game launch
   # Unstable is incremented for every frequent (biweekly?) release
   RELEASE_NUMBER: "0.0.0"
-  GODOT_VERSION: "4b16"
+  GODOT_VERSION: "4b17"
