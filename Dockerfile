@@ -50,8 +50,8 @@ RUN keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -key
     && mv debug.keystore /root/debug.keystore
 
 ARG GODOT_VERSION="4.0"
-ARG RELEASE_NAME="beta17"
-ARG SUBDIR="beta17"
+ARG RELEASE_NAME="rc1"
+ARG SUBDIR="rc1"
 
 RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${SUBDIR}/Godot_v${GODOT_VERSION}-${RELEASE_NAME}_export_templates.tpz
 RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${SUBDIR}/Godot_v${GODOT_VERSION}-${RELEASE_NAME}_linux.x86_64.zip
