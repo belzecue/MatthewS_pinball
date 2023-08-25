@@ -4,3 +4,6 @@
 [submodule "addons/godot-console"]
 	path = addons/godot-console
 	url = https://github.com/SdgGames/godot-console
+[submodule "addons/sdg-print"]
+	path = addons/sdg-print
+	url = https://github.com/SdgGames/sdg-print

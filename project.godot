@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Template"
+config/name="Actually 3D Pinball"
 run/main_scene="res://game.tscn"
-config/features=PackedStringArray("4.0", "Forward Plus")
+config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
