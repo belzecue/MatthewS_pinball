@@ -157,7 +157,7 @@ shape = SubResource("BoxShape3D_fvv8u")
 mesh = SubResource("BoxMesh_vjqip")
 
 [node name="Ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 2.0968)
 physics_material_override = SubResource("PhysicsMaterial_yw86d")
 continuous_cd = true
 metadata/_edit_group_ = true

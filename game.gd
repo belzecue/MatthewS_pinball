@@ -15,6 +15,14 @@ extends Node
 @export var plunger_pull_speed := 2.0      # Speed when the plunger pulls back
 @export var plunger_max_pullback := 2.0    # Maximum units the plunger can pull back
 @export var plunger_current_pullback := 0.0  # Track current pullback
+var plunger_start_position: Vector3        # To store the initial position of the plunger
+
+
+func _ready():
+	# Ensure initial states are correct
+	flipper_l.rotation_degrees.y = flipper_min_rotation
+	flipper_r.rotation_degrees.y = flipper_min_rotation
+	plunger_start_position = plunger.position
 
 
 func _physics_process(delta):
@@ -22,7 +30,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("LFlipper"):
 		flipper_l.rotation_degrees.y = lerp(flipper_l.rotation_degrees.y, -flipper_max_rotation, flipper_rotation_speed * delta)
 	else:
-		flipper_l.rotation_degrees.y = lerp(flipper_l.rotation_degrees.y, flipper_min_rotation, flipper_rotation_speed * delta)
+		flipper_l.rotation_degrees.y = lerp(flipper_l.rotation_degrees.y, -flipper_min_rotation, flipper_rotation_speed * delta)
 	
 	if Input.is_action_pressed("RFlipper"):
 		flipper_r.rotation_degrees.y = lerp(flipper_r.rotation_degrees.y, flipper_max_rotation, flipper_rotation_speed * delta)
@@ -32,13 +40,14 @@ func _physics_process(delta):
 	# Handle plunger
 	if Input.is_action_pressed("Plunger") and plunger_current_pullback < plunger_max_pullback:
 		plunger_current_pullback += plunger_pull_speed * delta
-		plunger.position.z -= plunger_pull_speed * delta
-	elif plunger_current_pullback > 0:
-		plunger_current_pullback -= plunger_push_speed * delta
-		plunger.position.z += plunger_push_speed * delta
-
-
-func _ready():
-	# Ensure initial states are correct
-	flipper_l.rotation_degrees.y = flipper_min_rotation
-	flipper_r.rotation_degrees.y = flipper_min_rotation
+	elif not Input.is_action_pressed("Plunger") and plunger_current_pullback > 0:
+		# Compute proportional return speed
+		var return_speed = plunger_push_speed * (plunger_current_pullback / plunger_max_pullback)
+		plunger_current_pullback -= return_speed * delta
+	
+	# Don't overshoot.
+	if plunger_current_pullback < 0:
+		plunger_current_pullback = 0
+	
+	# Apply the plunger position offset based on the current pullback
+	plunger.position.z = plunger_start_position.z + plunger_current_pullback
