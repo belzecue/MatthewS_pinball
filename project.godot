@@ -89,5 +89,6 @@ Bump_Right={
 
 [physics]
 
+common/physics_ticks_per_second=120
 3d/default_gravity=30.0
 3d/default_gravity_vector=Vector3(0, -1, 1)
