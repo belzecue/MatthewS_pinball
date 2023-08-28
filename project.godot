@@ -31,7 +31,6 @@ enabled=PackedStringArray("res://addons/fps_counter/plugin.cfg", "res://addons/g
 
 [filesystem]
 
-import/blender/enabled=false
 import/fbx/enabled=false
 
 [input]
