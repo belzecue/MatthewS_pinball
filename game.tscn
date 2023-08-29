@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://nucanroc4c8n" path="res://assets/Table_Perspective.png" id="2_o5qdq"]
 [ext_resource type="Texture2D" uid="uid://b052xf7rj5db7" path="res://assets/Items_Perspective.png" id="3_j33b3"]
 [ext_resource type="PackedScene" uid="uid://d0xv348i3qfu0" path="res://assets/pinball_static.glb" id="4_pjfuu"]
+[ext_resource type="PackedScene" uid="uid://c8c6p2m3v3qkx" path="res://player_elements/flipper_l.tscn" id="6_4e6vp"]
+[ext_resource type="PackedScene" uid="uid://bebqes3dn7jo0" path="res://player_elements/flipper_r.tscn" id="7_661hi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -28,12 +30,6 @@ height = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8r7lu"]
 radius = 0.2
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6p4c2"]
-size = Vector3(1, 0.8, 0.2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_5yhss"]
-size = Vector3(1, 0.8, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggsvf"]
 size = Vector3(0.75, 1.5, 0.75)
@@ -63,8 +59,8 @@ height = 0.5
 [node name="Game" type="Node"]
 script = ExtResource("1_x6knr")
 flipper_rotation_speed = 20.0
-flipper_max_rotation = -50.0
-flipper_min_rotation = 15.0
+flipper_max_rotation = -35.0
+flipper_min_rotation = 35.0
 plunger_push_speed = 200.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -97,9 +93,12 @@ transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-0
 visible = false
 texture = ExtResource("2_o5qdq")
 
+[node name="Table_Sprite2" type="Sprite3D" parent="Table/Reference"]
+transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.8, 1.01, -0.2)
+texture = ExtResource("2_o5qdq")
+
 [node name="Items_Sprite" type="Sprite3D" parent="Table/Reference"]
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 1.65, 0.138)
-visible = false
 texture = ExtResource("3_j33b3")
 
 [node name="Ball" type="RigidBody3D" parent="."]
@@ -116,29 +115,11 @@ shape = SubResource("SphereShape3D_8r7lu")
 
 [node name="ActiveElements" type="Node3D" parent="."]
 
-[node name="FlipperL" type="AnimatableBody3D" parent="ActiveElements"]
+[node name="FlipperL" parent="ActiveElements" instance=ExtResource("6_4e6vp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1, 7.4)
-metadata/_edit_group_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ActiveElements/FlipperL"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-shape = SubResource("BoxShape3D_6p4c2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ActiveElements/FlipperL"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-mesh = SubResource("BoxMesh_5yhss")
-
-[node name="FlipperR" type="AnimatableBody3D" parent="ActiveElements"]
+[node name="FlipperR" parent="ActiveElements" instance=ExtResource("7_661hi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, 7.4)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ActiveElements/FlipperR"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
-shape = SubResource("BoxShape3D_6p4c2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ActiveElements/FlipperR"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
-mesh = SubResource("BoxMesh_5yhss")
 
 [node name="Plunger" type="AnimatableBody3D" parent="ActiveElements"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.36, 1.2, 8.2)
