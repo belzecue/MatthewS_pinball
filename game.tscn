@@ -90,6 +90,18 @@ metadata/_edit_group_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Table/Glass"]
 shape = SubResource("BoxShape3D_kb6kg")
 
+[node name="Reference" type="Node3D" parent="Table"]
+
+[node name="Table_Sprite" type="Sprite3D" parent="Table/Reference"]
+transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 1.01, 0.2)
+visible = false
+texture = ExtResource("2_o5qdq")
+
+[node name="Items_Sprite" type="Sprite3D" parent="Table/Reference"]
+transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 1.65, 0.138)
+visible = false
+texture = ExtResource("3_j33b3")
+
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 1.25, 7.097)
 physics_material_override = ExtResource("2_jyjwa")
@@ -147,13 +159,3 @@ mesh = SubResource("CylinderMesh_5ge71")
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="ActiveElements/Plunger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.2, -1.19209e-07)
 mesh = SubResource("CapsuleMesh_3jmh6")
-
-[node name="Table_Sprite" type="Sprite3D" parent="."]
-transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 1.01, 0.2)
-visible = false
-texture = ExtResource("2_o5qdq")
-
-[node name="Items_Sprite" type="Sprite3D" parent="."]
-transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 1.65, 0.138)
-visible = false
-texture = ExtResource("3_j33b3")
