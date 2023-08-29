@@ -1,9 +1,9 @@
 extends Node
 
 # Flippers and plunger references
-@onready var flipper_l = $ActiveElements/FlipperL
-@onready var flipper_r = $ActiveElements/FlipperR
-@onready var plunger = $ActiveElements/Plunger
+@onready var flipper_l = $PlayerElements/FlipperL
+@onready var flipper_r = $PlayerElements/FlipperR
+@onready var plunger = $PlayerElements/Plunger
 
 # Flipper settings
 @export var flipper_rotation_speed := 2.5  # Determines the speed of flipper rotation

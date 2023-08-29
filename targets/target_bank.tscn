@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0xkxaslxjol7"]
+
+[ext_resource type="PackedScene" uid="uid://3dk0pqj06df5" path="res://targets/drop_target.tscn" id="1_b36yd"]
+
+[node name="Target_Bank" type="Node3D"]
+
+[node name="Drop Target1" parent="." instance=ExtResource("1_b36yd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.4, 0, 0)
+
+[node name="Drop Target2" parent="." instance=ExtResource("1_b36yd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Drop Target3" parent="." instance=ExtResource("1_b36yd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.4, 0, 0)

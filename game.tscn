@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=29 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://materials/ball_phymat.tres" id="2_jyjwa"]
@@ -7,6 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://d0xv348i3qfu0" path="res://assets/pinball_static.glb" id="4_pjfuu"]
 [ext_resource type="PackedScene" uid="uid://c8c6p2m3v3qkx" path="res://player_elements/flipper_l.tscn" id="6_4e6vp"]
 [ext_resource type="PackedScene" uid="uid://bebqes3dn7jo0" path="res://player_elements/flipper_r.tscn" id="7_661hi"]
+[ext_resource type="PackedScene" uid="uid://cpkh37lma0vqs" path="res://targets/bumper_large.tscn" id="8_xfvha"]
+[ext_resource type="PackedScene" uid="uid://b38ottfharoes" path="res://targets/bumper_small.tscn" id="9_t6bsu"]
+[ext_resource type="PackedScene" uid="uid://cco2blfkabhq7" path="res://targets/slingshot_l.tscn" id="11_6tshr"]
+[ext_resource type="PackedScene" uid="uid://bakyqmpmq5mmy" path="res://targets/slingshot_r.tscn" id="12_8cwlh"]
+[ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
+[ext_resource type="PackedScene" uid="uid://cg2lw35or8i5j" path="res://targets/target.tscn" id="14_kpkpt"]
+[ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
+[ext_resource type="PackedScene" uid="uid://djwvkysx1ahkw" path="res://targets/wall_sling_2.tscn" id="16_iv4kx"]
+[ext_resource type="PackedScene" uid="uid://b0xkxaslxjol7" path="res://targets/target_bank.tscn" id="16_nfyh3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -21,15 +30,15 @@ sky = SubResource("Sky_dfwyc")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kb6kg"]
-size = Vector3(9.5, 1, 17.5)
-
 [sub_resource type="SphereMesh" id="SphereMesh_knndk"]
 radius = 0.2
 height = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8r7lu"]
 radius = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kb6kg"]
+size = Vector3(9.5, 1, 17.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggsvf"]
 size = Vector3(0.75, 1.5, 0.75)
@@ -74,35 +83,8 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 12.5, 5)
 current = true
 
-[node name="Table" type="Node3D" parent="."]
-
-[node name="Pinball_Table" parent="Table" instance=ExtResource("4_pjfuu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Glass" type="StaticBody3D" parent="Table"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0841928, 2.5943, 0.0222616)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/Glass"]
-shape = SubResource("BoxShape3D_kb6kg")
-
-[node name="Reference" type="Node3D" parent="Table"]
-
-[node name="Table_Sprite" type="Sprite3D" parent="Table/Reference"]
-transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 1.01, 0.2)
-visible = false
-texture = ExtResource("2_o5qdq")
-
-[node name="Table_Sprite2" type="Sprite3D" parent="Table/Reference"]
-transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.8, 1.01, -0.2)
-texture = ExtResource("2_o5qdq")
-
-[node name="Items_Sprite" type="Sprite3D" parent="Table/Reference"]
-transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 1.65, 0.138)
-texture = ExtResource("3_j33b3")
-
 [node name="Ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 1.25, 7.097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35, 0.25, 7.097)
 physics_material_override = ExtResource("2_jyjwa")
 continuous_cd = true
 metadata/_edit_group_ = true
@@ -113,30 +95,157 @@ mesh = SubResource("SphereMesh_knndk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_8r7lu")
 
-[node name="ActiveElements" type="Node3D" parent="."]
+[node name="Table" type="Node3D" parent="."]
 
-[node name="FlipperL" parent="ActiveElements" instance=ExtResource("6_4e6vp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1, 7.4)
+[node name="Pinball_Table" parent="Table" instance=ExtResource("4_pjfuu")]
 
-[node name="FlipperR" parent="ActiveElements" instance=ExtResource("7_661hi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, 7.4)
+[node name="Glass" type="StaticBody3D" parent="Table"]
+transform = Transform3D(0.999997, 0.00205483, -0.00134155, -0.00205494, 0.999998, -7.85381e-05, 0.00134139, 8.12834e-05, 0.999999, 0, 1.5, 0)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
-[node name="Plunger" type="AnimatableBody3D" parent="ActiveElements"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.36, 1.2, 8.2)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/Glass"]
+shape = SubResource("BoxShape3D_kb6kg")
+
+[node name="Reference" type="Node3D" parent="Table"]
+visible = false
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Table_Sprite" type="Sprite3D" parent="Table/Reference"]
+transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 0.01, 0.2)
+texture = ExtResource("2_o5qdq")
+
+[node name="Table_Sprite2" type="Sprite3D" parent="Table/Reference"]
+transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.86612, 0.01, -0.2)
+texture = ExtResource("2_o5qdq")
+
+[node name="Items_Sprite" type="Sprite3D" parent="Table/Reference"]
+transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 0.65, 0.138)
+texture = ExtResource("3_j33b3")
+
+[node name="PlayerElements" type="Node3D" parent="."]
+
+[node name="FlipperL" parent="PlayerElements" instance=ExtResource("6_4e6vp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 7.5)
+
+[node name="FlipperR" parent="PlayerElements" instance=ExtResource("7_661hi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 7.5)
+
+[node name="Plunger" type="AnimatableBody3D" parent="PlayerElements"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.36, 0.2, 8.2)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ActiveElements/Plunger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerElements/Plunger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("BoxShape3D_ggsvf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ActiveElements/Plunger"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerElements/Plunger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = SubResource("CylinderMesh_ba7li")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="ActiveElements/Plunger"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PlayerElements/Plunger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4, -1.19209e-07)
 mesh = SubResource("CylinderMesh_5ge71")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="ActiveElements/Plunger"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PlayerElements/Plunger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.2, -1.19209e-07)
 mesh = SubResource("CapsuleMesh_3jmh6")
+
+[node name="ScoreElements" type="Node3D" parent="."]
+
+[node name="Bumpers" type="Node3D" parent="ScoreElements"]
+
+[node name="Bumper-Large" parent="ScoreElements/Bumpers" instance=ExtResource("8_xfvha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, -2.17)
+
+[node name="Bumper-Large2" parent="ScoreElements/Bumpers" instance=ExtResource("8_xfvha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.567786, 0, -3.18681)
+
+[node name="Bumper-Large3" parent="ScoreElements/Bumpers" instance=ExtResource("8_xfvha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.981467, 0, -3.56318)
+
+[node name="Bumper-Small" parent="ScoreElements/Bumpers" instance=ExtResource("9_t6bsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01009, 0.65, 2.92722)
+
+[node name="Bumper-Small2" parent="ScoreElements/Bumpers" instance=ExtResource("9_t6bsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.505, 0.652756, 2.01064)
+
+[node name="Bumper-Small3" parent="ScoreElements/Bumpers" instance=ExtResource("9_t6bsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37568, 0.65, 2.30678)
+
+[node name="Fuel_Spinner" parent="ScoreElements" instance=ExtResource("13_lg5d3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37, 0, -3)
+
+[node name="Chute_Spinner" parent="ScoreElements" instance=ExtResource("13_lg5d3")]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 2.93, 0, -1.6)
+
+[node name="Targets" type="Node3D" parent="ScoreElements"]
+
+[node name="Target1" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 1.93223, 0, -1.40426)
+
+[node name="Target2" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.310295, 0, -0.950641, 0, 1, 0, 0.950641, 0, 0.310295, 2.17685, 0, -4.18933)
+
+[node name="Target3" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.153814, 0, -0.9881, 0, 1, 0, 0.9881, 0, 0.153814, 2.28262, 0, -3.74807)
+
+[node name="Target4" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.0138922, 0, -0.999904, 0, 1, 0, 0.999904, 0, 0.0138922, 2.33569, 0, -3.27267)
+
+[node name="Target5" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 2.39364)
+
+[node name="Target6" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 2.89364)
+
+[node name="Target7" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 1.89364)
+
+[node name="Target8" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.63659, 0, -3.45868)
+
+[node name="Target9" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-0.122822, 0, 0.992429, 0, 1, 0, -0.992429, 0, -0.122822, -3.60362, 0, -2.98111)
+
+[node name="Target10" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-0.349652, 0, 0.93688, 0, 1, 0, -0.93688, 0, -0.349652, -3.49664, 0, -2.50526)
+
+[node name="Target11" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-0.349652, 0, 0.93688, 0, 1, 0, -0.93688, 0, -0.349652, -4.47387, 0, -6.48693)
+
+[node name="Target12" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.925521, 0, -0.378697, 0, 1, 0, 0.378697, 0, 0.925521, -2.99534, 0.00442398, -7.9159)
+
+[node name="Target13" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.547461, 0, -0.836831, 0, 1, 0, 0.836831, 0, 0.547461, -2.44185, 0.00442386, -7.45662)
+
+[node name="Target14" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.44149, 0, 0.897266, 0, 1, 0, -0.897266, 0, 0.44149, -4.43116, 0.00442386, -7.389)
+
+[node name="Target15" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.908574, 0, 0.417725, 0, 1, 0, -0.417725, 0, 0.908574, -3.84011, 0.00442386, -7.92091)
+
+[node name="Slingshots" type="Node3D" parent="ScoreElements"]
+
+[node name="SlingshotL" parent="ScoreElements/Slingshots" instance=ExtResource("11_6tshr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 5.3)
+
+[node name="SlingshotR" parent="ScoreElements/Slingshots" instance=ExtResource("12_8cwlh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 5.3)
+
+[node name="WallSling1" parent="ScoreElements/Slingshots" instance=ExtResource("15_202e7")]
+
+[node name="WallSling2" parent="ScoreElements/Slingshots" instance=ExtResource("16_iv4kx")]
+
+[node name="DropTargets" type="Node3D" parent="ScoreElements"]
+
+[node name="Target_Bank" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
+transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -0.239778, 0, -1.55199)
+
+[node name="Target_Bank2" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
+transform = Transform3D(0.843448, 0, 0.537211, 0, 1, 0, -0.537211, 0, 0.843448, -1.49864, 0, -5.20396)
+
+[node name="Target_Bank3" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.54824, 0, 1.22864)
