@@ -38,7 +38,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/flipper.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID10_004.res"
 },
 "pinball_items_ID24_001": {
 "generate/lightmap_uv": 0,
@@ -48,7 +48,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/slingshot_frame.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID24_001.res"
 },
 "pinball_items_ID24_002": {
 "generate/lightmap_uv": 0,
@@ -58,7 +58,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/wall1_frame.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID24_002.res"
 },
 "pinball_items_ID24_003": {
 "generate/lightmap_uv": 0,
@@ -68,7 +68,17 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/wall2_frame.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID24_003.res"
+},
+"pinball_items_ID3": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": false,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://assets/meshes/pinball_items_ID3.res"
 },
 "pinball_items_ID38_001": {
 "generate/lightmap_uv": 0,
@@ -78,7 +88,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/slingshot_band_relaxed.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID38_001.res"
 },
 "pinball_items_ID38_002": {
 "generate/lightmap_uv": 0,
@@ -88,7 +98,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/slingshot_band_firing.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID38_002.res"
 },
 "pinball_items_ID38_003": {
 "generate/lightmap_uv": 0,
@@ -98,7 +108,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/wall1_band_relaxed.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID38_003.res"
 },
 "pinball_items_ID38_004": {
 "generate/lightmap_uv": 0,
@@ -108,7 +118,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/wall1_band_firing.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID38_004.res"
 },
 "pinball_items_ID38_005": {
 "generate/lightmap_uv": 0,
@@ -118,7 +128,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/wall2_band_relaxed.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID38_005.res"
 },
 "pinball_items_ID38_006": {
 "generate/lightmap_uv": 0,
@@ -128,7 +138,17 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/slingshot/wall2_band_firing.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID38_006.res"
+},
+"pinball_items_ID3_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": false,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://assets/meshes/pinball_items_ID3_004.res"
 },
 "pinball_items_ID52_001": {
 "generate/lightmap_uv": 0,
@@ -138,7 +158,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/small_pop_bumper.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID52_001.res"
 },
 "pinball_items_ID59_003": {
 "generate/lightmap_uv": 0,
@@ -148,7 +168,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/drop_target.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID59_003.res"
 },
 "pinball_items_ID66": {
 "generate/lightmap_uv": 0,
@@ -158,7 +178,7 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
 "save_to_file/make_streamable": "",
-"save_to_file/path": "res://assets/meshes/target.res"
+"save_to_file/path": "res://assets/meshes/pinball_items_ID66.res"
 }
 }
 }

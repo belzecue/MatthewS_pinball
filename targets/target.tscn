@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg2lw35or8i5j"]
+[gd_scene load_steps=5 format=3 uid="uid://cg2lw35or8i5j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnjte"]
 resource_name = "ID44.001"
@@ -38,9 +38,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ryjyv")
 
-[node name="Target" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ihals"]
+height = 0.1
+radius = 0.2
+
+[node name="Target" type="StaticBody3D"]
 
 [node name="Target" type="MeshInstance3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_c5wb1")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 6.70552e-08, -1, 0, 1, 6.70552e-08, 0, 0.3, -0.03)
+shape = SubResource("CylinderShape3D_ihals")

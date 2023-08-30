@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://3dk0pqj06df5"]
+[gd_scene load_steps=5 format=3 uid="uid://3dk0pqj06df5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kbfp"]
 resource_name = "ID65"
@@ -36,9 +36,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_so870")
 
-[node name="Drop Target" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pujur"]
+size = Vector3(0.1, 0.4, 0.3)
+
+[node name="Drop Target" type="StaticBody3D"]
 
 [node name="Drop Target" type="MeshInstance3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gm7jo")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_pujur")
