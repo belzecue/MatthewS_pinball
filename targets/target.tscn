@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cg2lw35or8i5j"]
+[gd_scene load_steps=11 format=3 uid="uid://cg2lw35or8i5j"]
+
+[ext_resource type="Script" path="res://targets/target_set_reset.gd" id="1_4dl8x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnjte"]
 resource_name = "ID44.001"
@@ -42,13 +44,86 @@ shadow_mesh = SubResource("ArrayMesh_ryjyv")
 height = 0.1
 radius = 0.2
 
+[sub_resource type="Animation" id="Animation_bov80"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Target:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.261799, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3y0kc"]
+resource_name = "reset"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Target:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1n7ry"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Target:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.174533, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dtsmf"]
+_data = {
+"RESET": SubResource("Animation_1n7ry"),
+"hit": SubResource("Animation_bov80"),
+"reset": SubResource("Animation_3y0kc")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xakj2"]
+radius = 0.15
+
 [node name="Target" type="StaticBody3D"]
+script = ExtResource("1_4dl8x")
 
 [node name="Target" type="MeshInstance3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+transform = Transform3D(20, 0, 0, 0, 19.6962, 3.47296, 0, -3.47296, 19.6962, 0, 0, 0)
 mesh = SubResource("ArrayMesh_c5wb1")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 6.70552e-08, -1, 0, 1, 6.70552e-08, 0, 0.3, -0.03)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.3, -0.03)
 shape = SubResource("CylinderShape3D_ihals")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dtsmf")
+}
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("SphereShape3D_xakj2")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

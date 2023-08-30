@@ -30,10 +30,6 @@ animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={
 "materials": {
-"ID155": {
-"use_external/enabled": true,
-"use_external/path": "res://materials/purple_mat.tres"
-},
 "ID16.002": {
 "use_external/enabled": true,
 "use_external/path": "res://materials/table_top_mat.tres"
@@ -65,6 +61,10 @@ _subresources={
 "ID9.007": {
 "use_external/enabled": true,
 "use_external/path": "res://materials/black_mat.tres"
+},
+"ID9.010": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/purple_mat.tres"
 },
 "Material.001": {
 "use_external/enabled": true,
