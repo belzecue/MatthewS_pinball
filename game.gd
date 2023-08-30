@@ -28,6 +28,10 @@ func _ready():
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("restart"):
+		ball.position = ball_start.position
+		ball.linear_velocity = Vector3.ZERO
+	
 	# Handle flippers
 	if Input.is_action_pressed("LFlipper"):
 		flipper_l.rotation_degrees.y = lerp(flipper_l.rotation_degrees.y, -flipper_max_rotation, flipper_rotation_speed * delta)
