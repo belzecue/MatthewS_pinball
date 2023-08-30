@@ -4,6 +4,8 @@ extends Node
 @onready var flipper_l = $PlayerElements/FlipperL
 @onready var flipper_r = $PlayerElements/FlipperR
 @onready var plunger = $PlayerElements/Plunger
+@onready var ball = $Ball
+@onready var ball_start = $BallStart
 
 # Flipper settings
 @export var flipper_rotation_speed := 2.5  # Determines the speed of flipper rotation
@@ -51,3 +53,8 @@ func _physics_process(delta):
 	
 	# Apply the plunger position offset based on the current pullback
 	plunger.position.z = plunger_start_position.z + plunger_current_pullback
+
+
+func _on_ball_out_of_bounds(_body):
+	ball.position = ball_start.position
+	ball.linear_velocity = Vector3.ZERO

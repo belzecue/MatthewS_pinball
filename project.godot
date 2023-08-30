@@ -99,6 +99,12 @@ Bump_Right={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Physics Collide"
+3d_physics/layer_2="Ball Detect"
+3d_physics/layer_3="Ball Affect"
+
 [physics]
 
 common/physics_ticks_per_second=240

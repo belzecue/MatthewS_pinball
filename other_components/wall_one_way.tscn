@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpwq1dboxy6y4"]
+
+[ext_resource type="Script" path="res://other_components/wall_one_way.gd" id="1_gh3qu"]
+[ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://materials/steel_mat.tres" id="2_1c58e"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w7ir3"]
+size = Vector3(0.1, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kybp2"]
+size = Vector3(0.2, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w46j1"]
+size = Vector3(1, 0.5, 0.8)
+
+[node name="Wall" type="AnimatableBody3D"]
+script = ExtResource("1_gh3qu")
+disable_time = 0.25
+metadata/_edit_group_ = true
+
+[node name="Visible_Wall" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_1c58e")
+mesh = SubResource("BoxMesh_w7ir3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kybp2")
+
+[node name="Ball_Detection" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball_Detection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+shape = SubResource("BoxShape3D_w46j1")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="Ball_Detection" to="." method="_on_ball_detection_body_entered"]
+[connection signal="body_exited" from="Ball_Detection" to="." method="_on_ball_detection_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
