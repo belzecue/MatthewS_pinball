@@ -28,5 +28,48 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"ID155": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/purple_mat.tres"
+},
+"ID16.002": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/table_top_mat.tres"
+},
+"ID162.001": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/floor_mat.tres"
+},
+"ID22": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/table_top_mat.tres"
+},
+"ID9.002": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/walls_mat.tres"
+},
+"ID9.003": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/walls_mat.tres"
+},
+"ID9.005": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/steel_mat.tres"
+},
+"ID9.006": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/steel_mat.tres"
+},
+"ID9.007": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/black_mat.tres"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/steel_mat.tres"
+}
+}
+}
 gltf/embedded_image_handling=1
