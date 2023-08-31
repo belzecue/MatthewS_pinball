@@ -129,6 +129,22 @@ mesh = SubResource("SphereMesh_knndk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_8r7lu")
 
+[node name="Ball2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70188, 0.200001, -4.39975)
+collision_layer = 3
+collision_mask = 5
+mass = 0.5
+physics_material_override = ExtResource("2_jyjwa")
+continuous_cd = true
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball2"]
+material_override = ExtResource("3_xcxky")
+mesh = SubResource("SphereMesh_knndk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball2"]
+shape = SubResource("SphereShape3D_8r7lu")
+
 [node name="BallStart" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.2, 7.2)
 

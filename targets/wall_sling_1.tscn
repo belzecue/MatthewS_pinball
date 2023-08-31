@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://kri7qhxrl62h"]
+[gd_scene load_steps=12 format=3 uid="uid://kri7qhxrl62h"]
 
 [ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="1_dy1v6"]
 [ext_resource type="Script" path="res://targets/slingshot.gd" id="1_t0cef"]
@@ -52,6 +52,118 @@ _surfaces = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_elxt5"]
 size = Vector3(0.2, 0.5, 1)
 
+[sub_resource type="Animation" id="Animation_07m8l"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slingshot Band Relaxed_001:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Slingshot Band Firing_001:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.77558, 0.25, -1.55267), Vector3(-2.55473, 0.25, -2.09616), Vector3(-2.77558, 0.25, -1.55267)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.503981, 0), Vector3(0, -0.29599, 0), Vector3(0, -0.503981, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k4ktx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slingshot Band Relaxed_001:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Slingshot Band Firing_001:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.77558, 0.25, -1.55267)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.503981, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uninr"]
+_data = {
+"RESET": SubResource("Animation_k4ktx"),
+"hit": SubResource("Animation_07m8l")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ip5es"]
+size = Vector3(1.5, 0.5, 0.4)
+
 [node name="WallSling1" type="AnimatableBody3D"]
 script = ExtResource("1_t0cef")
 
@@ -67,6 +179,7 @@ skeleton = NodePath("")
 
 [node name="Slingshot Band Firing_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(9.42713, 0, 10.4265, 0, 20, 0, -8.72172, 0, 11.2698, 0, 0, 0)
+visible = false
 mesh = SubResource("ArrayMesh_g5by4")
 skeleton = NodePath("")
 
@@ -80,3 +193,12 @@ transform = Transform3D(-0.487525, 0, 0.873109, 0, 1, 0, -0.873109, 0, -0.487525
 shape = SubResource("BoxShape3D_elxt5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uninr")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.875667, 0, -0.482916, 0, 1, 0, 0.482916, 0, 0.875667, -2.77558, 0.25, -1.55267)
+shape = SubResource("BoxShape3D_ip5es")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
