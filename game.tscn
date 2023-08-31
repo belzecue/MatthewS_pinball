@@ -1,8 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=40 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
 [ext_resource type="Texture2D" uid="uid://nucanroc4c8n" path="res://assets/Table_Perspective.png" id="2_o5qdq"]
+[ext_resource type="Script" path="res://Ball.gd" id="3_524w4"]
 [ext_resource type="Texture2D" uid="uid://b052xf7rj5db7" path="res://assets/Items_Perspective.png" id="3_j33b3"]
 [ext_resource type="Material" uid="uid://rojjkshbmnnc" path="res://assets/materials/shiny_steel_mat.tres" id="3_xcxky"]
 [ext_resource type="PackedScene" uid="uid://d0xv348i3qfu0" path="res://assets/pinball_static.glb" id="4_pjfuu"]
@@ -89,6 +90,7 @@ height = 0.5
 
 [node name="Game" type="Node"]
 script = ExtResource("1_x6knr")
+debug_mode = true
 flipper_rotation_speed = 40.0
 flipper_max_rotation = -35.0
 flipper_min_rotation = 35.0
@@ -112,6 +114,7 @@ collision_mask = 5
 mass = 0.5
 physics_material_override = ExtResource("2_jyjwa")
 continuous_cd = true
+script = ExtResource("3_524w4")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
