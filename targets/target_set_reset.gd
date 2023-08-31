@@ -7,5 +7,5 @@ extends StaticBody3D
 func _on_area_3d_body_entered(_body):
 	if !hit:
 		animation_player.play("hit")
-		Print.from(PrintScope.GLOBAL, "target %s hit" % [name], Print.VERBOSE)
+		Print.from(PrintScope.GLOBAL, "Target %s hit" % [name], Print.VERBOSE)
 		hit = true
