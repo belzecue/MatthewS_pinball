@@ -1,19 +1,20 @@
-[gd_scene load_steps=40 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=36 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
 [ext_resource type="Texture2D" uid="uid://nucanroc4c8n" path="res://assets/Table_Perspective.png" id="2_o5qdq"]
 [ext_resource type="Script" path="res://Ball.gd" id="3_524w4"]
 [ext_resource type="Texture2D" uid="uid://b052xf7rj5db7" path="res://assets/Items_Perspective.png" id="3_j33b3"]
+[ext_resource type="AudioStream" uid="uid://cf16pmopwslbg" path="res://assets/sounds/SOUND4.WAV" id="3_oyw5e"]
 [ext_resource type="Material" uid="uid://rojjkshbmnnc" path="res://assets/materials/shiny_steel_mat.tres" id="3_xcxky"]
 [ext_resource type="PackedScene" uid="uid://d0xv348i3qfu0" path="res://assets/pinball_static.glb" id="4_pjfuu"]
 [ext_resource type="PackedScene" uid="uid://c8c6p2m3v3qkx" path="res://player_elements/flipper_l.tscn" id="6_4e6vp"]
 [ext_resource type="PackedScene" uid="uid://bebqes3dn7jo0" path="res://player_elements/flipper_r.tscn" id="7_661hi"]
 [ext_resource type="PackedScene" uid="uid://cpkh37lma0vqs" path="res://targets/bumper_large.tscn" id="8_xfvha"]
 [ext_resource type="PackedScene" uid="uid://b38ottfharoes" path="res://targets/bumper_small.tscn" id="9_t6bsu"]
-[ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="10_6w7kj"]
 [ext_resource type="PackedScene" uid="uid://cco2blfkabhq7" path="res://targets/slingshot_l.tscn" id="11_6tshr"]
 [ext_resource type="PackedScene" uid="uid://bakyqmpmq5mmy" path="res://targets/slingshot_r.tscn" id="12_8cwlh"]
+[ext_resource type="PackedScene" uid="uid://c5yomjitgqvie" path="res://player_elements/plunger.tscn" id="13_k0n1t"]
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
 [ext_resource type="PackedScene" uid="uid://cg2lw35or8i5j" path="res://targets/target.tscn" id="14_kpkpt"]
 [ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
@@ -22,6 +23,7 @@
 [ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="18_fmvog"]
 [ext_resource type="PackedScene" uid="uid://bpwq1dboxy6y4" path="res://other_components/wall_one_way.tscn" id="19_4y4h5"]
 [ext_resource type="PackedScene" uid="uid://41rbxw84k3fh" path="res://targets/scoop.tscn" id="20_x6vd1"]
+[ext_resource type="AudioStream" uid="uid://d5iiooyhmixk" path="res://assets/sounds/SOUND1.WAV" id="23_so7se"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -63,52 +65,34 @@ size = Vector3(20, 10, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_t2f1f"]
 size = Vector3(1, 10, 40)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ggsvf"]
-size = Vector3(0.75, 1.5, 0.75)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_ba7li"]
-top_radius = 0.3
-bottom_radius = 0.2
-height = 1.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3w2h"]
-albedo_color = Color(0.47451, 0.47451, 0.47451, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_5ge71"]
-material = SubResource("StandardMaterial3D_g3w2h")
-top_radius = 0.1
-bottom_radius = 0.1
-height = 1.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ohgh"]
-albedo_color = Color(0.184314, 0.184314, 0.184314, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3jmh6"]
-material = SubResource("StandardMaterial3D_5ohgh")
-radius = 0.2
-height = 0.5
-
 [node name="Game" type="Node"]
 script = ExtResource("1_x6knr")
-debug_mode = true
-flipper_rotation_speed = 40.0
-flipper_max_rotation = -35.0
-flipper_min_rotation = 35.0
-plunger_push_speed = 200.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldThings" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldThings"]
 environment = SubResource("Environment_asr00")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldThings"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, -0.25, 0.808013, 0.533494, -0.433013, 0.399519, -0.808013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="WorldThings"]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 12.5, 5)
 current = true
 
+[node name="AudioListener3D" type="AudioListener3D" parent="WorldThings/Camera3D"]
+current = true
+
+[node name="BootSound" type="AudioStreamPlayer3D" parent="WorldThings"]
+stream = ExtResource("23_so7se")
+
+[node name="ServeSound" type="AudioStreamPlayer3D" parent="WorldThings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0, 7.1)
+stream = ExtResource("3_oyw5e")
+
 [node name="Ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.2, 7.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 collision_layer = 3
 collision_mask = 5
 mass = 0.5
@@ -125,7 +109,7 @@ mesh = SubResource("SphereMesh_knndk")
 shape = SubResource("SphereShape3D_8r7lu")
 
 [node name="BallStart" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.2, 7.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.2, 6.7)
 
 [node name="Table" type="Node3D" parent="."]
 
@@ -205,27 +189,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 7.5)
 [node name="FlipperR" parent="PlayerElements" instance=ExtResource("7_661hi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 7.5)
 
-[node name="Plunger" type="AnimatableBody3D" parent="PlayerElements"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.36, 0.2, 8.2)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerElements/Plunger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-shape = SubResource("BoxShape3D_ggsvf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerElements/Plunger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-mesh = SubResource("CylinderMesh_ba7li")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PlayerElements/Plunger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4, -1.19209e-07)
-material_override = ExtResource("18_fmvog")
-mesh = SubResource("CylinderMesh_5ge71")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="PlayerElements/Plunger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.2, -1.19209e-07)
-material_override = ExtResource("10_6w7kj")
-mesh = SubResource("CapsuleMesh_3jmh6")
+[node name="Plunger" parent="PlayerElements" instance=ExtResource("13_k0n1t")]
 
 [node name="ScoreElements" type="Node3D" parent="."]
 
