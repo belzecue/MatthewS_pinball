@@ -32,43 +32,43 @@ _subresources={
 "materials": {
 "ID16.002": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/table_top_mat.tres"
+"use_external/path": "res://assets/materials/table_top_mat.tres"
 },
 "ID162.001": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/floor_mat.tres"
+"use_external/path": "res://assets/materials/floor_mat.tres"
 },
 "ID22": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/table_top_mat.tres"
+"use_external/path": "res://assets/materials/table_top_mat.tres"
 },
 "ID9.002": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/walls_mat.tres"
+"use_external/path": "res://assets/materials/walls_mat.tres"
 },
 "ID9.003": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/walls_mat.tres"
+"use_external/path": "res://assets/materials/walls_mat.tres"
 },
 "ID9.005": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/steel_mat.tres"
+"use_external/path": "res://assets/materials/steel_mat.tres"
 },
 "ID9.006": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/steel_mat.tres"
+"use_external/path": "res://assets/materials/steel_mat.tres"
 },
 "ID9.007": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/black_mat.tres"
+"use_external/path": "res://assets/materials/black_mat.tres"
 },
 "ID9.010": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/purple_mat.tres"
+"use_external/path": "res://assets/materials/purple_mat.tres"
 },
 "Material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/steel_mat.tres"
+"use_external/path": "res://assets/materials/steel_mat.tres"
 }
 }
 }
