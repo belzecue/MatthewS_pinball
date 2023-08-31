@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://41rbxw84k3fh"]
+
+[ext_resource type="Script" path="res://targets/scoop.gd" id="1_5hat5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jlvk7"]
+
+[sub_resource type="Animation" id="Animation_s8blu"]
+resource_name = "hit"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5, 0), Vector3(0, -1.5, 0), Vector3(0, -0.5, 0), Vector3(0, -1.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2e7p"]
+_data = {
+"hit": SubResource("Animation_s8blu")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n65w6"]
+
+[node name="Scoop" type="AnimatableBody3D"]
+script = ExtResource("1_5hat5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+shape = SubResource("BoxShape3D_jlvk7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 3.0
+libraries = {
+"": SubResource("AnimationLibrary_a2e7p")
+}
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+shape = SubResource("BoxShape3D_n65w6")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered" flags=18]
