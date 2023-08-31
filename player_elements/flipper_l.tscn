@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c8c6p2m3v3qkx"]
 
-[ext_resource type="Material" uid="uid://dv1raa852fp6c" path="res://materials/rubber_mat.tres" id="1_dt7bl"]
-[ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://materials/steel_mat.tres" id="2_ofdvk"]
+[ext_resource type="Material" uid="uid://dv1raa852fp6c" path="res://assets/materials/rubber_mat.tres" id="1_dt7bl"]
+[ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="2_ofdvk"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8l33n"]
 height = 0.5

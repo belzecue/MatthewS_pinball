@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bpwq1dboxy6y4"]
 
 [ext_resource type="Script" path="res://other_components/wall_one_way.gd" id="1_gh3qu"]
-[ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://materials/steel_mat.tres" id="2_1c58e"]
+[ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="2_1c58e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_w7ir3"]
 size = Vector3(0.1, 0.5, 1)

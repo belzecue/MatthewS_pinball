@@ -13,6 +13,7 @@ func _on_timer_timeout():
 
 func _on_ball_detection_body_entered(_body):
 	collision_layer = 0
+	Print.from(PrintScope.GLOBAL, "ball passed through wall %s" % [name], Print.VERBOSE)
 
 
 func _on_ball_detection_body_exited(_body):
