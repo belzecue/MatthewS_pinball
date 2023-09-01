@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://djwvkysx1ahkw"]
+[gd_scene load_steps=13 format=3 uid="uid://djwvkysx1ahkw"]
 
 [ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="1_84k70"]
 [ext_resource type="Script" path="res://targets/slingshot.gd" id="1_mlyc8"]
 [ext_resource type="Material" uid="uid://csblc42omev4g" path="res://assets/materials/slingshot_rubber_mat.tres" id="2_2wymc"]
+[ext_resource type="AudioStream" uid="uid://cwaemw018sdpx" path="res://assets/sounds/SOUND5.WAV" id="2_24k57"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_yucl7"]
 _surfaces = [{
@@ -166,6 +167,7 @@ size = Vector3(0.2, 0.5, 1)
 
 [node name="WallSling2" type="AnimatableBody3D"]
 script = ExtResource("1_mlyc8")
+fire = ExtResource("2_24k57")
 
 [node name="Slingshot_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(-6.7621, 0, 7.80718, 0, 20, 0, -6.55015, 0, -8.05981, 0, 0, 0)
@@ -200,5 +202,7 @@ libraries = {
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.897443, 0, -0.44113, 0, 1, 0, 0.44113, 0, 0.897443, 2.18803, 0.25, -2.15446)
 shape = SubResource("BoxShape3D_n15vv")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

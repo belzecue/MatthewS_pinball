@@ -3,8 +3,8 @@
 [ext_resource type="Material" uid="uid://dv1raa852fp6c" path="res://assets/materials/rubber_mat.tres" id="1_dt7bl"]
 [ext_resource type="Script" path="res://player_elements/flipper.gd" id="1_mcdpa"]
 [ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="2_ofdvk"]
-[ext_resource type="AudioStream" uid="uid://cwaemw018sdpx" path="res://assets/sounds/SOUND5.WAV" id="4_iun3q"]
-[ext_resource type="AudioStream" uid="uid://d2ukk4laej4h4" path="res://assets/sounds/SOUND6.WAV" id="5_iuxm6"]
+[ext_resource type="AudioStream" uid="uid://bsvq11ymobom8" path="res://assets/sounds/SOUND104.WAV" id="4_vw2gm"]
+[ext_resource type="AudioStream" uid="uid://dgj7qn4l3crjy" path="res://assets/sounds/SOUND105.WAV" id="5_s6esu"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8l33n"]
 height = 0.5
@@ -91,7 +91,7 @@ transform = Transform3D(0.99781, 0, -0.066152, 0, 1, 0, 0.066152, 0, 0.99781, 0.
 shape = SubResource("BoxShape3D_0141u")
 
 [node name="Flip_Sound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_iun3q")
+stream = ExtResource("4_vw2gm")
 
 [node name="Return_Sound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_iuxm6")
+stream = ExtResource("5_s6esu")
