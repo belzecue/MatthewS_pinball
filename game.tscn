@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=43 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://b052xf7rj5db7" path="res://assets/Items_Perspective.png" id="3_j33b3"]
 [ext_resource type="AudioStream" uid="uid://cf16pmopwslbg" path="res://assets/sounds/SOUND4.WAV" id="3_oyw5e"]
 [ext_resource type="Material" uid="uid://rojjkshbmnnc" path="res://assets/materials/shiny_steel_mat.tres" id="3_xcxky"]
+[ext_resource type="AudioStream" uid="uid://clvfsokr4o4jm" path="res://assets/sounds/SOUND27.WAV" id="4_jgorw"]
 [ext_resource type="PackedScene" uid="uid://d0xv348i3qfu0" path="res://assets/pinball_static.glb" id="4_pjfuu"]
+[ext_resource type="AudioStream" uid="uid://b0o1kjtwi6fi0" path="res://assets/sounds/SOUND3.WAV" id="4_unsr5"]
 [ext_resource type="PackedScene" uid="uid://c8c6p2m3v3qkx" path="res://player_elements/flipper_l.tscn" id="6_4e6vp"]
 [ext_resource type="PackedScene" uid="uid://bebqes3dn7jo0" path="res://player_elements/flipper_r.tscn" id="7_661hi"]
 [ext_resource type="PackedScene" uid="uid://cpkh37lma0vqs" path="res://targets/bumper_large.tscn" id="8_xfvha"]
@@ -53,11 +55,21 @@ height = 0.6
 [sub_resource type="BoxMesh" id="BoxMesh_koig2"]
 size = Vector3(0.62, 0.1, 0.15)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ub811"]
+friction = 0.0
+bounce = 1.0
+absorbent = true
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_rawi8"]
 size = Vector3(0.7, 0.2, 2.2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_47stl"]
+size = Vector3(5, 1, 0.2)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_tcld8"]
 size = Vector3(0.5, 0.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5gwl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q3x2n"]
 size = Vector3(20, 1, 40)
@@ -67,6 +79,9 @@ size = Vector3(20, 10, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t2f1f"]
 size = Vector3(1, 10, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a255l"]
+size = Vector3(4.5, 1, 0.2)
 
 [node name="Game" type="Node"]
 script = ExtResource("1_x6knr")
@@ -94,6 +109,12 @@ stream = ExtResource("23_so7se")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0, 7.1)
 stream = ExtResource("3_oyw5e")
 
+[node name="CrashSound" type="AudioStreamPlayer3D" parent="WorldThings"]
+stream = ExtResource("4_jgorw")
+
+[node name="GameLost" type="AudioStreamPlayer3D" parent="WorldThings"]
+stream = ExtResource("4_unsr5")
+
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 collision_layer = 3
@@ -114,75 +135,101 @@ shape = SubResource("SphereShape3D_8r7lu")
 [node name="BallStart" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.3, 6.2)
 
-[node name="Table" type="Node3D" parent="."]
+[node name="TableStatic" type="Node3D" parent="."]
 
-[node name="Reference" type="Node3D" parent="Table"]
+[node name="Reference" type="Node3D" parent="TableStatic"]
 visible = false
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="Table_Sprite" type="Sprite3D" parent="Table/Reference"]
+[node name="Table_Sprite" type="Sprite3D" parent="TableStatic/Reference"]
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 0.01, 0.2)
 texture = ExtResource("2_o5qdq")
 
-[node name="Table_Sprite2" type="Sprite3D" parent="Table/Reference"]
+[node name="Table_Sprite2" type="Sprite3D" parent="TableStatic/Reference"]
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.61998, 0.01, -0.595935)
 visible = false
 texture = ExtResource("2_o5qdq")
 
-[node name="Items_Sprite" type="Sprite3D" parent="Table/Reference"]
+[node name="Items_Sprite" type="Sprite3D" parent="TableStatic/Reference"]
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 0.65, 0.138)
 texture = ExtResource("3_j33b3")
 
-[node name="Pinball_Table" parent="Table" instance=ExtResource("4_pjfuu")]
+[node name="Pinball_Table" parent="TableStatic" instance=ExtResource("4_pjfuu")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Table"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TableStatic/Pinball_Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3406, 0.2, 3.37718)
 mesh = SubResource("CylinderMesh_qt20r")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Table"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TableStatic/Pinball_Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.58024, 0.55, 3.37957)
 material_override = ExtResource("18_fmvog")
 mesh = SubResource("BoxMesh_koig2")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Table"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TableStatic/Pinball_Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0, 3.4)
+physics_material_override = SubResource("PhysicsMaterial_ub811")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TableStatic/Pinball_Table/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.761, -0.05, 3)
 shape = SubResource("BoxShape3D_rawi8")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Table/StaticBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="TableStatic/Pinball_Table/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 5.8)
+shape = SubResource("BoxShape3D_47stl")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="TableStatic/Pinball_Table/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -0.173648, -0.984808, 0, 0.984808, -0.173648, -3.5, -0.5, 5.2)
+shape = SubResource("BoxShape3D_47stl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="TableStatic/Pinball_Table/StaticBody3D"]
 transform = Transform3D(0.773243, 0.407598, 0.485756, 0, 0.766044, -0.642788, -0.63411, 0.497031, 0.592339, -2.01419, 0.259462, -9.66155)
 shape = SubResource("BoxShape3D_tcld8")
 
-[node name="OutOfBounds" type="Area3D" parent="Table"]
+[node name="Glass" type="StaticBody3D" parent="TableStatic"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TableStatic/Glass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+shape = SubResource("BoxShape3D_j5gwl")
+
+[node name="OutOfBounds" type="Area3D" parent="TableStatic"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/OutOfBounds"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TableStatic/OutOfBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 shape = SubResource("BoxShape3D_q3x2n")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Table/OutOfBounds"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="TableStatic/OutOfBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_q3x2n")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Table/OutOfBounds"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="TableStatic/OutOfBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
 shape = SubResource("BoxShape3D_5xt1v")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Table/OutOfBounds"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="TableStatic/OutOfBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
 shape = SubResource("BoxShape3D_5xt1v")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="Table/OutOfBounds"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="TableStatic/OutOfBounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 1)
 shape = SubResource("BoxShape3D_t2f1f")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="Table/OutOfBounds"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="TableStatic/OutOfBounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1)
 shape = SubResource("BoxShape3D_t2f1f")
+
+[node name="Gutter" type="Area3D" parent="TableStatic"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TableStatic/Gutter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 8.5)
+shape = SubResource("BoxShape3D_a255l")
 
 [node name="PlayerElements" type="Node3D" parent="."]
 
@@ -311,24 +358,25 @@ transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 
 [node name="Hyperspace" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
 transform = Transform3D(0.791544, 0, -0.611113, 0, 1, 0, 0.611113, 0, 0.791544, 1.81764, -0.00395902, -6.29099)
 
-[node name="TableElements" type="Node3D" parent="."]
+[node name="Walls" type="Node3D" parent="."]
 
-[node name="Wall1" parent="TableElements" instance=ExtResource("19_4y4h5")]
+[node name="Wall1" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(-0.886914, 0, -0.461934, 0, 1, 0, 0.461934, 0, -0.886914, -1.85564, 0.25, -7.05867)
 
-[node name="Wall2" parent="TableElements" instance=ExtResource("19_4y4h5")]
+[node name="Wall2" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(0.89345, 0, -0.449163, 0, 1, 0, 0.449163, 0, 0.89345, 1.90528, 0.25, -7.0432)
 
-[node name="Wall3" parent="TableElements" instance=ExtResource("19_4y4h5")]
+[node name="Wall3" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(0.451905, 0, -0.892066, 0, 1, 0, 0.892066, 0, 0.451905, 4.36513, 0.25, 2.93585)
 
-[node name="Wall4" parent="TableElements" instance=ExtResource("19_4y4h5")]
+[node name="Wall4" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.32302, 0.25, 2.8)
 
-[node name="Wall5" parent="TableElements" instance=ExtResource("19_4y4h5")]
+[node name="Wall5" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(-0.737136, 0, -0.675745, 0, 1, 0, 0.675745, 0, -0.737136, -4.44339, 0.25, -1.09311)
 
-[node name="Wall6" parent="TableElements" instance=ExtResource("19_4y4h5")]
+[node name="Wall6" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.29728, 0.25, 3.44177)
 
-[connection signal="body_entered" from="Table/OutOfBounds" to="." method="_on_ball_out_of_bounds"]
+[connection signal="body_entered" from="TableStatic/OutOfBounds" to="." method="_on_ball_out_of_bounds"]
+[connection signal="body_entered" from="TableStatic/Gutter" to="." method="_on_gutter_body_entered"]

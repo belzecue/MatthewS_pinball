@@ -9,6 +9,9 @@ extends Node
 @onready var camera = $WorldThings/Camera3D
 @onready var boot_sound = $WorldThings/BootSound
 @onready var serve_sound = $WorldThings/ServeSound
+@onready var logger = Print.get_logger(PrintScope.GLOBAL)
+
+var resetting := true
 
 
 func _ready():
@@ -21,8 +24,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("restart"):
-		ball.position = ball_start.position
-		ball.linear_velocity = Vector3.ZERO
+		ball.move(ball_start.position)
 
 
 func serve():
@@ -30,6 +32,7 @@ func serve():
 		serve_sound.play()
 	if !Global.skip_intro:
 		await get_tree().create_timer(1).timeout
+	resetting = false
 	ball.move(ball_start.position)
 
 
@@ -53,4 +56,16 @@ func _input(event):
 
 
 func _on_ball_out_of_bounds(_body):
-	serve()
+	if !resetting:
+		resetting = true
+		logger.error("Ball out of bounds! Resetting!")
+		serve()
+
+
+func _on_gutter_body_entered(_body):
+	if !resetting:
+		resetting = true
+		if !Global.mute:
+			logger.info("Ball entered gutter.")
+			await get_tree().create_timer(2).timeout
+		serve()

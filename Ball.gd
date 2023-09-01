@@ -12,4 +12,5 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if should_reposition:
 		state.transform.origin = target_position
 		state.linear_velocity = Vector3.ZERO
+		state.angular_velocity = Vector3.ZERO
 		should_reposition = false
