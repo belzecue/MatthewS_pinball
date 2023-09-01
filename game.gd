@@ -8,6 +8,7 @@ extends Node
 @onready var crash_sound = $WorldThings/CrashSound
 @onready var game_lost = $WorldThings/GameLost
 @onready var logger = Print.get_logger(PrintScope.GLOBAL)
+@onready var glass = $TableStatic/Glass
 
 var resetting := true
 
@@ -41,7 +42,7 @@ func _input(event):
 
 		# Create the PhysicsRayQueryParameters3D object using the provided utility method.
 		var query = PhysicsRayQueryParameters3D.create(ray_from, ray_to)
-		query.exclude = [ball.get_rid()]  # Exclude the ball from the raycast.
+		query.exclude = [ball.get_rid(), glass.get_rid()]  # Exclude the ball from the raycast.
 		query.collide_with_bodies = true  # Ensure we're colliding with bodies (this is default but just being explicit).
 
 		var result = camera.get_world_3d().direct_space_state.intersect_ray(query)
