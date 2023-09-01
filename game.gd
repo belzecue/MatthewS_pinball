@@ -1,14 +1,12 @@
 extends Node
 
-# Flippers and plunger references
-@onready var flipper_l = $PlayerElements/FlipperL
-@onready var flipper_r = $PlayerElements/FlipperR
-@onready var plunger = $PlayerElements/Plunger
 @onready var ball = $Ball
 @onready var ball_start = $BallStart
 @onready var camera = $WorldThings/Camera3D
 @onready var boot_sound = $WorldThings/BootSound
 @onready var serve_sound = $WorldThings/ServeSound
+@onready var crash_sound = $WorldThings/CrashSound
+@onready var game_lost = $WorldThings/GameLost
 @onready var logger = Print.get_logger(PrintScope.GLOBAL)
 
 var resetting := true
@@ -67,5 +65,6 @@ func _on_gutter_body_entered(_body):
 		resetting = true
 		if !Global.mute:
 			logger.info("Ball entered gutter.")
+			crash_sound.play()
 			await get_tree().create_timer(2).timeout
 		serve()
