@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=48 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -26,6 +26,8 @@
 [ext_resource type="PackedScene" uid="uid://bpwq1dboxy6y4" path="res://other_components/wall_one_way.tscn" id="19_4y4h5"]
 [ext_resource type="PackedScene" uid="uid://41rbxw84k3fh" path="res://targets/scoop.tscn" id="20_x6vd1"]
 [ext_resource type="AudioStream" uid="uid://d5iiooyhmixk" path="res://assets/sounds/SOUND1.WAV" id="23_so7se"]
+[ext_resource type="PackedScene" uid="uid://ycxwk4nvyy0d" path="res://targets/kicker_l.tscn" id="26_rigd4"]
+[ext_resource type="PackedScene" uid="uid://cj4xpnevco0bk" path="res://targets/kicker_r.tscn" id="27_odqvy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -163,6 +165,7 @@ texture = ExtResource("2_o5qdq")
 
 [node name="Items_Sprite" type="Sprite3D" parent="TableStatic/Reference"]
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.97, 0.65, 0.138)
+visible = false
 texture = ExtResource("3_j33b3")
 
 [node name="Pinball_Table" parent="TableStatic" instance=ExtResource("4_pjfuu")]
@@ -401,6 +404,12 @@ transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 
 
 [node name="Hyperspace" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
 transform = Transform3D(0.791544, 0, -0.611113, 0, 1, 0, 0.611113, 0, 0.791544, 1.81764, -0.00395902, -6.29099)
+
+[node name="KickerL" parent="ScoreElements/Scoops" instance=ExtResource("26_rigd4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37403, 0.25, 6.31707)
+
+[node name="KickerR" parent="ScoreElements/Scoops" instance=ExtResource("27_odqvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.58321, 0.25, 6.31707)
 
 [node name="RolloverTargets" type="Node3D" parent="ScoreElements"]
 
