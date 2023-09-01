@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://41rbxw84k3fh"]
+[gd_scene load_steps=7 format=3 uid="uid://41rbxw84k3fh"]
 
 [ext_resource type="Script" path="res://targets/scoop.gd" id="1_5hat5"]
+[ext_resource type="AudioStream" uid="uid://cu34dik4y4suy" path="res://assets/sounds/SOUND43.WAV" id="2_x5tja"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jlvk7"]
 
@@ -29,6 +30,8 @@ _data = {
 
 [node name="Scoop" type="AnimatableBody3D"]
 script = ExtResource("1_5hat5")
+enter_sound = ExtResource("2_x5tja")
+exit_sound = ExtResource("2_x5tja")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
@@ -48,4 +51,9 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 shape = SubResource("BoxShape3D_n65w6")
 
+[node name="Enter_Audio" type="AudioStreamPlayer3D" parent="."]
+
+[node name="Exit_Audio" type="AudioStreamPlayer3D" parent="."]
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered" flags=18]
+[connection signal="finished" from="Enter_Audio" to="." method="_on_enter_audio_finished"]

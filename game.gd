@@ -19,7 +19,7 @@ func _ready():
 	serve()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("restart"):
 		ball.position = ball_start.position
 		ball.linear_velocity = Vector3.ZERO

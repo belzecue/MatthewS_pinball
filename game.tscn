@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=37 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bakyqmpmq5mmy" path="res://targets/slingshot_r.tscn" id="12_8cwlh"]
 [ext_resource type="PackedScene" uid="uid://c5yomjitgqvie" path="res://player_elements/plunger.tscn" id="13_k0n1t"]
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
-[ext_resource type="PackedScene" uid="uid://cg2lw35or8i5j" path="res://targets/target.tscn" id="14_kpkpt"]
+[ext_resource type="PackedScene" uid="uid://vnjbuega05s1" path="res://targets/target.tscn" id="14_kpkpt"]
 [ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
 [ext_resource type="PackedScene" uid="uid://djwvkysx1ahkw" path="res://targets/wall_sling_2.tscn" id="16_iv4kx"]
 [ext_resource type="PackedScene" uid="uid://b0xkxaslxjol7" path="res://targets/target_bank.tscn" id="16_nfyh3"]
@@ -52,6 +52,9 @@ height = 0.6
 
 [sub_resource type="BoxMesh" id="BoxMesh_koig2"]
 size = Vector3(0.62, 0.1, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rawi8"]
+size = Vector3(0.7, 0.2, 2.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tcld8"]
 size = Vector3(0.5, 0.5, 0.1)
@@ -109,7 +112,7 @@ mesh = SubResource("SphereMesh_knndk")
 shape = SubResource("SphereShape3D_8r7lu")
 
 [node name="BallStart" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.2, 6.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.3, 6.2)
 
 [node name="Table" type="Node3D" parent="."]
 
@@ -146,8 +149,8 @@ mesh = SubResource("BoxMesh_koig2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0, 3.4)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-shape = SubResource("BoxShape3D_tcld8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.761, -0.05, 3)
+shape = SubResource("BoxShape3D_rawi8")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Table/StaticBody3D"]
 transform = Transform3D(0.773243, 0.407598, 0.485756, 0, 0.766044, -0.642788, -0.63411, 0.497031, 0.592339, -2.01419, 0.259462, -9.66155)
