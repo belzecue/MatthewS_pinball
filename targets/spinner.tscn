@@ -41,9 +41,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4niuk")
 
-[sub_resource type="Animation" id="Animation_ijib0"]
-resource_name = "forward"
-length = 0.5
+[sub_resource type="Animation" id="Animation_2i2bh"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -51,10 +50,10 @@ tracks/0/path = NodePath("Node3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-6.28319, 0, 0), Vector3(6.28319, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_q3jx0"]
@@ -73,8 +72,9 @@ tracks/0/keys = {
 "values": [Vector3(6.28319, 0, 0), Vector3(-6.28319, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_2i2bh"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ijib0"]
+resource_name = "forward"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -82,10 +82,10 @@ tracks/0/path = NodePath("Node3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(-6.28319, 0, 0), Vector3(6.28319, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mteby"]

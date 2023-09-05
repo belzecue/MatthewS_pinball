@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://ikhxblbjy5ch"]
+
+[ext_resource type="Script" path="res://other_components/light.gd" id="1_r6h5s"]
+[ext_resource type="Material" uid="uid://dna2d1116b2fi" path="res://assets/materials/lights/yellow_dim.tres" id="1_yid4y"]
+[ext_resource type="Material" uid="uid://beiuh72byuxxe" path="res://assets/materials/lights/yellow_lit.tres" id="2_qy6u8"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f14r4"]
+material = ExtResource("1_yid4y")
+top_radius = 0.1
+bottom_radius = 0.125
+height = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b6712"]
+material = ExtResource("2_qy6u8")
+top_radius = 0.1
+bottom_radius = 0.125
+height = 0.05
+
+[node name="Light" type="Node3D"]
+script = ExtResource("1_r6h5s")
+
+[node name="Unlit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("CylinderMesh_f14r4")
+skeleton = NodePath("../..")
+
+[node name="Lit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+visible = false
+mesh = SubResource("CylinderMesh_b6712")
+skeleton = NodePath("../..")

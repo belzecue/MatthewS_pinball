@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0xkxaslxjol7"]
+[gd_scene load_steps=4 format=3 uid="uid://b0xkxaslxjol7"]
 
 [ext_resource type="Script" path="res://targets/target_bank.gd" id="1_824i5"]
 [ext_resource type="PackedScene" uid="uid://3dk0pqj06df5" path="res://targets/drop_target.tscn" id="1_b36yd"]
+[ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="2_hf2kt"]
 
 [node name="Target_Bank" type="Node3D"]
 script = ExtResource("1_824i5")
+
+[node name="Light" parent="." instance=ExtResource("2_hf2kt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 0.3)
 
 [node name="Targets" type="Node3D" parent="."]
 

@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://tb6beixppwb8"]
+
+[ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="1_d0nwg"]
+[ext_resource type="Script" path="res://targets/rollover.gd" id="1_oydrj"]
+[ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="2_1k05j"]
+[ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="3_a3m1i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7h2x0"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rin0s"]
+material = ExtResource("1_d0nwg")
+size = Vector3(0.05, 0.04, 0.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_weta2"]
+material = ExtResource("1_d0nwg")
+size = Vector3(0.15, 0.04, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_62ueb"]
+material = ExtResource("2_1k05j")
+size = Vector3(0.15, 0.02, 0.35)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_71f0b"]
+material = ExtResource("1_d0nwg")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xtuwf"]
+material = ExtResource("1_d0nwg")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.2
+
+[node name="Rollover" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_oydrj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_7h2x0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.02, 0)
+mesh = SubResource("BoxMesh_rin0s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.02, 0)
+mesh = SubResource("BoxMesh_rin0s")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.2)
+mesh = SubResource("BoxMesh_weta2")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.2)
+mesh = SubResource("BoxMesh_weta2")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("BoxMesh_62ueb")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0.0691583, -0.144538)
+mesh = SubResource("CylinderMesh_71f0b")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.34202, -0.939693, 0, 0.939693, -0.34202, 0, 0.0698076, -0.0180998)
+mesh = SubResource("CylinderMesh_xtuwf")
+
+[node name="Light" parent="." instance=ExtResource("3_a3m1i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

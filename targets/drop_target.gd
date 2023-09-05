@@ -5,6 +5,7 @@ extends StaticBody3D
 @onready var animation_player = $AnimationPlayer
 @onready var hit_1 = $Hit1
 @onready var hit_2 = $Hit2
+@onready var light = $Light
 
 signal target_hit
 
@@ -18,11 +19,13 @@ func on_hit():
 			hit_2.play()
 		emit_signal("target_hit")
 		hit = true
+		light.activate()
 
 
 func reset():
 	animation_player.play("reset")
 	hit = false
+	light.deactivate()
 
 
 func _on_area_3d_body_entered(_body):
