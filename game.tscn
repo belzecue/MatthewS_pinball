@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=59 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -14,7 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://bebqes3dn7jo0" path="res://player_elements/flipper_r.tscn" id="7_661hi"]
 [ext_resource type="PackedScene" uid="uid://cpkh37lma0vqs" path="res://targets/bumper_large.tscn" id="8_xfvha"]
 [ext_resource type="PackedScene" uid="uid://b38ottfharoes" path="res://targets/bumper_small.tscn" id="9_t6bsu"]
+[ext_resource type="Texture2D" uid="uid://bo14vfbldcnd" path="res://assets/Modern_Background.png" id="10_t2wgq"]
 [ext_resource type="PackedScene" uid="uid://cco2blfkabhq7" path="res://targets/slingshot_l.tscn" id="11_6tshr"]
+[ext_resource type="Texture2D" uid="uid://cadif8q1gp7pl" path="res://assets/Modern_Top.png" id="11_r448a"]
 [ext_resource type="PackedScene" uid="uid://bakyqmpmq5mmy" path="res://targets/slingshot_r.tscn" id="12_8cwlh"]
 [ext_resource type="PackedScene" uid="uid://c5yomjitgqvie" path="res://player_elements/plunger.tscn" id="13_k0n1t"]
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
@@ -243,6 +245,16 @@ metadata/_edit_lock_ = true
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 0.01, 0.2)
 visible = false
 texture = ExtResource("2_o5qdq")
+
+[node name="Background" type="Sprite3D" parent="TableStatic/Reference"]
+transform = Transform3D(1.95, 0, 0, 0, -8.52372e-08, 1.95, 0, -1.95, -8.52372e-08, -1.41561e-07, 0.01, -7.45058e-09)
+double_sided = false
+texture = ExtResource("10_t2wgq")
+
+[node name="Background2" type="Sprite3D" parent="TableStatic/Reference"]
+transform = Transform3D(1.95, 0, 0, 0, -8.52372e-08, 1.95, 0, -1.95, -8.52372e-08, -1.41561e-07, 0.61, -7.45058e-09)
+double_sided = false
+texture = ExtResource("11_r448a")
 
 [node name="Table_Sprite2" type="Sprite3D" parent="TableStatic/Reference"]
 transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 2.61998, 0.01, -0.595935)
