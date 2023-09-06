@@ -9,6 +9,7 @@ extends Node
 @onready var game_lost = $WorldThings/GameLost
 @onready var logger = Print.get_logger(PrintScope.GLOBAL)
 @onready var glass = $TableStatic/Glass
+@onready var serve_light = $Lights/ServeLight
 
 var resetting := true
 
@@ -27,12 +28,13 @@ func _physics_process(_delta):
 
 
 func serve():
+	serve_light.activate()
 	if !Global.mute:
 		serve_sound.play()
-	if !Global.skip_intro:
 		await get_tree().create_timer(1).timeout
 	resetting = false
 	ball.move(ball_start.position)
+	serve_light.deactivate()
 
 
 func _input(event):

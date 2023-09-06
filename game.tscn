@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=62 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
 [ext_resource type="PackedScene" uid="uid://vnjbuega05s1" path="res://targets/target.tscn" id="14_kpkpt"]
 [ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
+[ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="15_jutt2"]
 [ext_resource type="PackedScene" uid="uid://djwvkysx1ahkw" path="res://targets/wall_sling_2.tscn" id="16_iv4kx"]
 [ext_resource type="PackedScene" uid="uid://b0xkxaslxjol7" path="res://targets/target_bank.tscn" id="16_nfyh3"]
 [ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="18_fmvog"]
@@ -32,7 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://cj4xpnevco0bk" path="res://targets/kicker_r.tscn" id="27_odqvy"]
 [ext_resource type="PackedScene" uid="uid://tb6beixppwb8" path="res://targets/rollover.tscn" id="28_v646t"]
 [ext_resource type="Material" uid="uid://dna2d1116b2fi" path="res://assets/materials/lights/yellow_dim.tres" id="29_yoo4o"]
-[ext_resource type="Material" uid="uid://beiuh72byuxxe" path="res://assets/materials/lights/yellow_lit.tres" id="30_e24vb"]
+[ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="32_c3elj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -78,6 +79,18 @@ size = Vector3(5, 1, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qh0jc"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_687bu"]
+material = ExtResource("15_jutt2")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.02
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jla4x"]
+material = ExtResource("18_fmvog")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ysp0n"]
 size = Vector3(5, 1, 17.5)
 
@@ -105,7 +118,7 @@ _surfaces = [{
 "format": 4099,
 "index_count": 36,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 16, 0, 19, 0, 17, 0, 20, 0, 21, 0, 22, 0, 20, 0, 22, 0, 23, 0),
-"material": ExtResource("30_e24vb"),
+"material": ExtResource("29_yoo4o"),
 "name": "ID9.014",
 "primitive": 3,
 "vertex_count": 24,
@@ -238,6 +251,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.3, 6.2)
 [node name="TableStatic" type="Node3D" parent="."]
 
 [node name="Reference" type="Node3D" parent="TableStatic"]
+visible = false
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -307,6 +321,14 @@ shape = SubResource("BoxShape3D_qh0jc")
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="TableStatic/Pinball_Table/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 5.5)
 shape = SubResource("BoxShape3D_qh0jc")
+
+[node name="Peg" type="MeshInstance3D" parent="TableStatic/Pinball_Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 8.2)
+mesh = SubResource("CylinderMesh_687bu")
+
+[node name="Peg" type="MeshInstance3D" parent="TableStatic/Pinball_Table/Peg"]
+mesh = SubResource("CylinderMesh_jla4x")
+skeleton = NodePath("../..")
 
 [node name="Glass" type="StaticBody3D" parent="TableStatic"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -381,7 +403,7 @@ shape = SubResource("BoxShape3D_a255l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 7.5)
 
 [node name="FlipperR" parent="PlayerElements" instance=ExtResource("7_661hi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 7.5)
 
 [node name="Plunger" parent="PlayerElements" instance=ExtResource("13_k0n1t")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.36, 0.2, 8.2)
@@ -564,32 +586,43 @@ transform = Transform3D(-0.737136, 0, -0.675745, 0, 1, 0, 0.675745, 0, -0.737136
 [node name="Wall6" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.29728, 0.25, 3.44177)
 
-[node name="lights" type="Node3D" parent="."]
+[node name="Lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 
-[node name="Light1" type="MeshInstance3D" parent="lights"]
+[node name="ServeLight" parent="Lights" instance=ExtResource("32_c3elj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.8)
+
+[node name="LaunchLights" type="Node3D" parent="Lights"]
+
+[node name="Light1" type="MeshInstance3D" parent="Lights/LaunchLights"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_38h45")
+skeleton = NodePath("../..")
 
-[node name="Light2" type="MeshInstance3D" parent="lights"]
+[node name="Light2" type="MeshInstance3D" parent="Lights/LaunchLights"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_6u8m8")
+skeleton = NodePath("../..")
 
-[node name="Light3" type="MeshInstance3D" parent="lights"]
+[node name="Light3" type="MeshInstance3D" parent="Lights/LaunchLights"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3ya1r")
+skeleton = NodePath("../..")
 
-[node name="Light4" type="MeshInstance3D" parent="lights"]
+[node name="Light4" type="MeshInstance3D" parent="Lights/LaunchLights"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_cf703")
+skeleton = NodePath("../..")
 
-[node name="Light5" type="MeshInstance3D" parent="lights"]
+[node name="Light5" type="MeshInstance3D" parent="Lights/LaunchLights"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ph4co")
+skeleton = NodePath("../..")
 
-[node name="Light6" type="MeshInstance3D" parent="lights"]
+[node name="Light6" type="MeshInstance3D" parent="Lights/LaunchLights"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_1bc4q")
+skeleton = NodePath("../..")
 
 [connection signal="body_entered" from="TableStatic/OutOfBounds" to="." method="_on_ball_out_of_bounds"]
 [connection signal="body_entered" from="TableStatic/Gutter" to="." method="_on_gutter_body_entered"]

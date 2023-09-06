@@ -12,4 +12,5 @@ func _ready():
 
 func _on_body_entered(_body):
 		Print.from(PrintScope.GLOBAL, "Rollover %s hit" % [name], Print.VERBOSE)
+		rollover_audio.play()
 		light.toggle()

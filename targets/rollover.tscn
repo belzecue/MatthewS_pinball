@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://tb6beixppwb8"]
+[gd_scene load_steps=12 format=3 uid="uid://tb6beixppwb8"]
 
 [ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="1_d0nwg"]
 [ext_resource type="Script" path="res://targets/rollover.gd" id="1_oydrj"]
 [ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="2_1k05j"]
+[ext_resource type="AudioStream" uid="uid://64ypalsy7dx6" path="res://assets/sounds/SOUND26.WAV" id="2_10nl7"]
 [ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="3_a3m1i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h2x0"]
-size = Vector3(0.5, 0.5, 0.5)
+size = Vector3(0.2, 0.5, 0.3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rin0s"]
 material = ExtResource("1_d0nwg")
@@ -36,6 +37,7 @@ height = 0.2
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_oydrj")
+sound = ExtResource("2_10nl7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)

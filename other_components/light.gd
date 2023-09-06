@@ -1,4 +1,5 @@
 extends Node3D
+class_name Light
 
 @onready var unlit = $Unlit
 @onready var lit = $Lit
