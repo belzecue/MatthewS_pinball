@@ -9,7 +9,7 @@ func _ready():
 	kick_audio.stream = kick_sound
 
 
-func _on_area_3d_body_entered(body):
+func _on_area_3d_body_entered(_body):
 	if !animation_player.is_playing():
 		await get_tree().create_timer(1).timeout
 		if !Global.mute:

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxkx8hmryh8fa"]
+
+[ext_resource type="Script" path="res://other_components/hyperspace_light.gd" id="1_r8rgf"]
+[ext_resource type="Material" uid="uid://bao0i6bl4jhmq" path="res://assets/materials/lights/blue_lit.tres" id="2_cae6e"]
+[ext_resource type="AudioStream" uid="uid://bkeyd5hcydj1e" path="res://assets/sounds/SOUND112.WAV" id="2_mdjmg"]
+[ext_resource type="Material" uid="uid://d3xbod8867cvd" path="res://assets/materials/lights/blue_dim.tres" id="3_3ubpt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6sf1a"]
+material = ExtResource("3_3ubpt")
+size = Vector3(0.75, 0.02, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o7tep"]
+material = ExtResource("2_cae6e")
+size = Vector3(0.75, 0.02, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ngf4e"]
+size = Vector3(0.5, 0.5, 0.1)
+
+[node name="Light" type="Node3D"]
+script = ExtResource("1_r8rgf")
+rollover_sound = ExtResource("2_mdjmg")
+
+[node name="Unlit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003, 0.61, -0.047)
+mesh = SubResource("BoxMesh_6sf1a")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003, 0.61, -0.047)
+visible = false
+mesh = SubResource("BoxMesh_o7tep")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection"]
+shape = SubResource("BoxShape3D_ngf4e")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]

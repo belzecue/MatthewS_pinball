@@ -1,0 +1,299 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3vol6gs0tg86"]
+
+[ext_resource type="Script" path="res://other_components/launch_lights.gd" id="1_r04k2"]
+[ext_resource type="AudioStream" uid="uid://b0o1kjtwi6fi0" path="res://assets/sounds/SOUND3.WAV" id="2_je26j"]
+[ext_resource type="Script" path="res://other_components/launch_light.gd" id="2_mdk1r"]
+[ext_resource type="AudioStream" uid="uid://blpere2ysqbg0" path="res://assets/sounds/SOUND14.WAV" id="2_n707c"]
+[ext_resource type="Material" uid="uid://dna2d1116b2fi" path="res://assets/materials/lights/yellow_dim.tres" id="3_qai0y"]
+[ext_resource type="Material" uid="uid://beiuh72byuxxe" path="res://assets/materials/lights/yellow_lit.tres" id="4_dn15g"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_38h45"]
+_surfaces = [{
+"aabb": AABB(0.134637, 0.03, -0.331102, 0.028901, 0.001, 0.031507),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 16, 0, 19, 0, 17, 0, 20, 0, 21, 0, 22, 0, 20, 0, 22, 0, 23, 0),
+"material": ExtResource("3_qai0y"),
+"name": "ID9.014",
+"primitive": 3,
+"vertex_count": 24,
+"vertex_data": PackedByteArray(144, 162, 30, 62, 143, 194, 245, 60, 52, 134, 169, 190, 0, 0, 90, 187, 144, 162, 30, 62, 183, 243, 253, 60, 52, 134, 169, 190, 0, 0, 90, 187, 72, 222, 9, 62, 183, 243, 253, 60, 178, 132, 157, 190, 0, 0, 90, 187, 72, 222, 9, 62, 143, 194, 245, 60, 178, 132, 157, 190, 0, 0, 90, 187, 72, 222, 9, 62, 143, 194, 245, 60, 178, 132, 157, 190, 1, 66, 255, 127, 72, 222, 9, 62, 183, 243, 253, 60, 178, 132, 157, 190, 1, 66, 255, 127, 55, 167, 18, 62, 183, 243, 253, 60, 132, 100, 153, 190, 1, 66, 255, 127, 55, 167, 18, 62, 143, 194, 245, 60, 132, 100, 153, 190, 1, 66, 255, 127, 55, 167, 18, 62, 143, 194, 245, 60, 132, 100, 153, 190, 162, 196, 255, 127, 55, 167, 18, 62, 183, 243, 253, 60, 132, 100, 153, 190, 162, 196, 255, 127, 129, 118, 39, 62, 183, 243, 253, 60, 81, 108, 165, 190, 162, 196, 255, 127, 129, 118, 39, 62, 143, 194, 245, 60, 81, 108, 165, 190, 162, 196, 255, 127, 129, 118, 39, 62, 143, 194, 245, 60, 81, 108, 165, 190, 255, 255, 88, 194, 129, 118, 39, 62, 183, 243, 253, 60, 81, 108, 165, 190, 255, 255, 88, 194, 144, 162, 30, 62, 183, 243, 253, 60, 52, 134, 169, 190, 255, 255, 88, 194, 144, 162, 30, 62, 143, 194, 245, 60, 52, 134, 169, 190, 255, 255, 88, 194, 144, 162, 30, 62, 183, 243, 253, 60, 52, 134, 169, 190, 255, 127, 255, 255, 55, 167, 18, 62, 183, 243, 253, 60, 132, 100, 153, 190, 255, 127, 255, 255, 72, 222, 9, 62, 183, 243, 253, 60, 178, 132, 157, 190, 255, 127, 255, 255, 129, 118, 39, 62, 183, 243, 253, 60, 81, 108, 165, 190, 255, 127, 255, 255, 55, 167, 18, 62, 143, 194, 245, 60, 132, 100, 153, 190, 255, 127, 0, 0, 129, 118, 39, 62, 143, 194, 245, 60, 81, 108, 165, 190, 255, 127, 0, 0, 144, 162, 30, 62, 143, 194, 245, 60, 52, 134, 169, 190, 255, 127, 0, 0, 72, 222, 9, 62, 143, 194, 245, 60, 178, 132, 157, 190, 255, 127, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ngf4e"]
+size = Vector3(0.5, 0.5, 0.1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3ya1r"]
+_surfaces = [{
+"aabb": AABB(0.184519, 0.03, -0.264191, 0.028524, 0.001, 0.036091),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 16, 0, 19, 0, 17, 0, 20, 0, 21, 0, 22, 0, 20, 0, 22, 0, 23, 0),
+"material": ExtResource("3_qai0y"),
+"name": "ID9.014",
+"primitive": 3,
+"vertex_count": 24,
+"vertex_data": PackedByteArray(252, 81, 84, 62, 143, 194, 245, 60, 11, 68, 135, 190, 0, 0, 155, 190, 252, 81, 84, 62, 183, 243, 253, 60, 11, 68, 135, 190, 0, 0, 155, 190, 140, 242, 60, 62, 183, 243, 253, 60, 92, 31, 118, 190, 0, 0, 155, 190, 140, 242, 60, 62, 143, 194, 245, 60, 92, 31, 118, 190, 0, 0, 155, 190, 140, 242, 60, 62, 143, 194, 245, 60, 92, 31, 118, 190, 213, 37, 255, 127, 140, 242, 60, 62, 183, 243, 253, 60, 92, 31, 118, 190, 213, 37, 255, 127, 59, 54, 66, 62, 183, 243, 253, 60, 11, 147, 105, 190, 213, 37, 255, 127, 59, 54, 66, 62, 143, 194, 245, 60, 11, 147, 105, 190, 213, 37, 255, 127, 59, 54, 66, 62, 143, 194, 245, 60, 11, 147, 105, 190, 98, 193, 255, 127, 59, 54, 66, 62, 183, 243, 253, 60, 11, 147, 105, 190, 98, 193, 255, 127, 242, 39, 90, 62, 183, 243, 253, 60, 44, 74, 129, 190, 98, 193, 255, 127, 242, 39, 90, 62, 143, 194, 245, 60, 44, 74, 129, 190, 98, 193, 255, 127, 242, 39, 90, 62, 143, 194, 245, 60, 44, 74, 129, 190, 255, 255, 254, 169, 242, 39, 90, 62, 183, 243, 253, 60, 44, 74, 129, 190, 255, 255, 254, 169, 252, 81, 84, 62, 183, 243, 253, 60, 11, 68, 135, 190, 255, 255, 254, 169, 252, 81, 84, 62, 143, 194, 245, 60, 11, 68, 135, 190, 255, 255, 254, 169, 140, 242, 60, 62, 183, 243, 253, 60, 92, 31, 118, 190, 255, 127, 255, 255, 242, 39, 90, 62, 183, 243, 253, 60, 44, 74, 129, 190, 255, 127, 255, 255, 59, 54, 66, 62, 183, 243, 253, 60, 11, 147, 105, 190, 255, 127, 255, 255, 252, 81, 84, 62, 183, 243, 253, 60, 11, 68, 135, 190, 255, 127, 255, 255, 140, 242, 60, 62, 143, 194, 245, 60, 92, 31, 118, 190, 255, 127, 0, 0, 59, 54, 66, 62, 143, 194, 245, 60, 11, 147, 105, 190, 255, 127, 0, 0, 242, 39, 90, 62, 143, 194, 245, 60, 44, 74, 129, 190, 255, 127, 0, 0, 252, 81, 84, 62, 143, 194, 245, 60, 11, 68, 135, 190, 255, 127, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cf703"]
+_surfaces = [{
+"aabb": AABB(0.202926, 0.03, -0.177646, 0.031388, 0.00101, 0.031422),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 2, 0, 1, 0, 1, 0, 3, 0, 0, 0, 4, 0, 6, 0, 5, 0, 4, 0, 5, 0, 7, 0, 8, 0, 10, 0, 9, 0, 9, 0, 11, 0, 8, 0, 12, 0, 16, 0, 14, 0, 15, 0, 17, 0, 13, 0, 18, 0, 20, 0, 19, 0, 21, 0, 20, 0, 18, 0, 22, 0, 24, 0, 23, 0, 23, 0, 24, 0, 25, 0),
+"material": ExtResource("3_qai0y"),
+"name": "ID9.014",
+"primitive": 3,
+"vertex_count": 26,
+"vertex_data": PackedByteArray(213, 203, 79, 62, 183, 243, 253, 60, 187, 14, 37, 190, 159, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 191, 187, 21, 190, 159, 0, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 191, 187, 21, 190, 159, 0, 255, 127, 213, 203, 79, 62, 143, 194, 245, 60, 187, 14, 37, 190, 159, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 191, 187, 21, 190, 75, 173, 255, 127, 2, 240, 111, 62, 183, 243, 253, 60, 10, 76, 39, 190, 75, 173, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 191, 187, 21, 190, 75, 173, 255, 127, 2, 240, 111, 62, 143, 194, 245, 60, 10, 76, 39, 190, 75, 173, 255, 127, 2, 240, 111, 62, 183, 243, 253, 60, 10, 76, 39, 190, 255, 255, 2, 139, 243, 143, 110, 62, 143, 194, 245, 60, 213, 232, 53, 190, 255, 255, 2, 139, 243, 143, 110, 62, 183, 243, 253, 60, 213, 232, 53, 190, 255, 255, 2, 139, 2, 240, 111, 62, 143, 194, 245, 60, 10, 76, 39, 190, 255, 255, 2, 139, 243, 143, 110, 62, 183, 243, 253, 60, 213, 232, 53, 190, 0, 0, 178, 210, 243, 143, 110, 62, 183, 243, 253, 60, 213, 232, 53, 190, 0, 0, 179, 210, 213, 203, 79, 62, 143, 194, 245, 60, 187, 14, 37, 190, 0, 0, 178, 210, 213, 203, 79, 62, 143, 194, 245, 60, 187, 14, 37, 190, 0, 0, 179, 210, 213, 203, 79, 62, 183, 243, 253, 60, 187, 14, 37, 190, 0, 0, 178, 210, 243, 143, 110, 62, 143, 194, 245, 60, 213, 232, 53, 190, 0, 0, 179, 210, 2, 240, 111, 62, 183, 243, 253, 60, 10, 76, 39, 190, 255, 127, 255, 255, 243, 143, 110, 62, 183, 243, 253, 60, 213, 232, 53, 190, 255, 127, 255, 255, 213, 203, 79, 62, 183, 243, 253, 60, 187, 14, 37, 190, 255, 127, 255, 255, 60, 223, 79, 62, 183, 243, 253, 60, 191, 187, 21, 190, 255, 127, 255, 255, 243, 143, 110, 62, 143, 194, 245, 60, 213, 232, 53, 190, 255, 127, 0, 0, 2, 240, 111, 62, 143, 194, 245, 60, 10, 76, 39, 190, 255, 127, 0, 0, 213, 203, 79, 62, 143, 194, 245, 60, 187, 14, 37, 190, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 191, 187, 21, 190, 255, 127, 0, 0)
+}]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1bc4q"]
+_surfaces = [{
+"aabb": AABB(0.203, 0.03, -0.0740087, 0.03101, 0.00101, 0.0286729),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 2, 0, 1, 0, 1, 0, 3, 0, 0, 0, 4, 0, 6, 0, 5, 0, 4, 0, 5, 0, 7, 0, 8, 0, 10, 0, 9, 0, 8, 0, 9, 0, 11, 0, 12, 0, 14, 0, 13, 0, 14, 0, 12, 0, 15, 0, 16, 0, 18, 0, 17, 0, 16, 0, 19, 0, 18, 0, 20, 0, 22, 0, 21, 0, 23, 0, 21, 0, 22, 0),
+"material": ExtResource("3_qai0y"),
+"name": "ID9.014",
+"primitive": 3,
+"vertex_count": 24,
+"vertex_data": PackedByteArray(179, 157, 111, 62, 183, 243, 253, 60, 224, 145, 151, 189, 0, 0, 253, 212, 60, 223, 79, 62, 143, 194, 245, 60, 215, 226, 110, 189, 0, 0, 253, 212, 60, 223, 79, 62, 183, 243, 253, 60, 215, 226, 110, 189, 0, 0, 253, 212, 179, 157, 111, 62, 143, 194, 245, 60, 224, 145, 151, 189, 0, 0, 253, 212, 60, 223, 79, 62, 183, 243, 253, 60, 215, 226, 110, 189, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 8, 178, 57, 189, 0, 0, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 8, 178, 57, 189, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 215, 226, 110, 189, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 8, 178, 57, 189, 0, 171, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 240, 242, 121, 189, 0, 171, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 8, 178, 57, 189, 0, 171, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 240, 242, 121, 189, 0, 171, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 224, 145, 151, 189, 255, 255, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 224, 145, 151, 189, 255, 255, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 240, 242, 121, 189, 255, 255, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 240, 242, 121, 189, 255, 255, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 215, 226, 110, 189, 255, 127, 255, 255, 60, 223, 79, 62, 183, 243, 253, 60, 8, 178, 57, 189, 255, 127, 255, 255, 179, 157, 111, 62, 183, 243, 253, 60, 240, 242, 121, 189, 255, 127, 255, 255, 179, 157, 111, 62, 183, 243, 253, 60, 224, 145, 151, 189, 255, 127, 255, 255, 179, 157, 111, 62, 143, 194, 245, 60, 224, 145, 151, 189, 255, 127, 0, 0, 179, 157, 111, 62, 143, 194, 245, 60, 240, 242, 121, 189, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 215, 226, 110, 189, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 8, 178, 57, 189, 255, 127, 0, 0)
+}]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6u8m8"]
+_surfaces = [{
+"aabb": AABB(0.203, 0.03, 0.0330424, 0.031, 0.001, 0.0286828),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 5, 0, 4, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 18, 0, 19, 0, 16, 0, 20, 0, 21, 0, 22, 0, 20, 0, 23, 0, 21, 0),
+"material": ExtResource("3_qai0y"),
+"name": "ID9.014",
+"primitive": 3,
+"vertex_count": 24,
+"vertex_data": PackedByteArray(60, 223, 79, 62, 143, 194, 245, 60, 20, 201, 124, 61, 0, 171, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 20, 201, 124, 61, 0, 171, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 44, 136, 60, 61, 0, 171, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 44, 136, 60, 61, 0, 171, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 120, 87, 7, 61, 255, 255, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 44, 136, 60, 61, 255, 255, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 120, 87, 7, 61, 255, 255, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 44, 136, 60, 61, 255, 255, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 120, 87, 7, 61, 0, 0, 253, 212, 179, 157, 111, 62, 183, 243, 253, 60, 120, 87, 7, 61, 0, 0, 253, 212, 60, 223, 79, 62, 183, 243, 253, 60, 69, 152, 71, 61, 0, 0, 253, 212, 60, 223, 79, 62, 143, 194, 245, 60, 69, 152, 71, 61, 0, 0, 253, 212, 60, 223, 79, 62, 183, 243, 253, 60, 69, 152, 71, 61, 0, 0, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 20, 201, 124, 61, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 20, 201, 124, 61, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 69, 152, 71, 61, 0, 0, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 69, 152, 71, 61, 255, 127, 255, 255, 179, 157, 111, 62, 183, 243, 253, 60, 120, 87, 7, 61, 255, 127, 255, 255, 179, 157, 111, 62, 183, 243, 253, 60, 44, 136, 60, 61, 255, 127, 255, 255, 60, 223, 79, 62, 183, 243, 253, 60, 20, 201, 124, 61, 255, 127, 255, 255, 179, 157, 111, 62, 143, 194, 245, 60, 44, 136, 60, 61, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 69, 152, 71, 61, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 20, 201, 124, 61, 255, 127, 0, 0, 179, 157, 111, 62, 143, 194, 245, 60, 120, 87, 7, 61, 255, 127, 0, 0)
+}]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ph4co"]
+resource_name = "lights_ID28"
+_surfaces = [{
+"aabb": AABB(0.203, 0.03, 0.135406, 0.03101, 0.00101, 0.028673),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 2, 0, 1, 0, 1, 0, 3, 0, 0, 0, 4, 0, 6, 0, 5, 0, 4, 0, 5, 0, 7, 0, 8, 0, 10, 0, 9, 0, 8, 0, 9, 0, 11, 0, 12, 0, 14, 0, 13, 0, 14, 0, 12, 0, 15, 0, 16, 0, 18, 0, 17, 0, 16, 0, 19, 0, 18, 0, 20, 0, 22, 0, 21, 0, 23, 0, 21, 0, 22, 0),
+"material": ExtResource("3_qai0y"),
+"name": "ID9.014",
+"primitive": 3,
+"vertex_count": 24,
+"vertex_data": PackedByteArray(179, 157, 111, 62, 183, 243, 253, 60, 223, 167, 10, 62, 0, 0, 253, 212, 60, 223, 79, 62, 143, 194, 245, 60, 32, 184, 26, 62, 0, 0, 253, 212, 60, 223, 79, 62, 183, 243, 253, 60, 32, 184, 26, 62, 0, 0, 253, 212, 179, 157, 111, 62, 143, 194, 245, 60, 223, 167, 10, 62, 0, 0, 253, 212, 60, 223, 79, 62, 183, 243, 253, 60, 32, 184, 26, 62, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 83, 4, 40, 62, 0, 0, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 83, 4, 40, 62, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 32, 184, 26, 62, 0, 0, 255, 127, 60, 223, 79, 62, 143, 194, 245, 60, 83, 4, 40, 62, 0, 171, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 19, 244, 23, 62, 0, 171, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 83, 4, 40, 62, 0, 171, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 19, 244, 23, 62, 0, 171, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 223, 167, 10, 62, 255, 255, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 223, 167, 10, 62, 255, 255, 255, 127, 179, 157, 111, 62, 183, 243, 253, 60, 19, 244, 23, 62, 255, 255, 255, 127, 179, 157, 111, 62, 143, 194, 245, 60, 19, 244, 23, 62, 255, 255, 255, 127, 60, 223, 79, 62, 183, 243, 253, 60, 32, 184, 26, 62, 255, 127, 255, 255, 60, 223, 79, 62, 183, 243, 253, 60, 83, 4, 40, 62, 255, 127, 255, 255, 179, 157, 111, 62, 183, 243, 253, 60, 19, 244, 23, 62, 255, 127, 255, 255, 179, 157, 111, 62, 183, 243, 253, 60, 223, 167, 10, 62, 255, 127, 255, 255, 179, 157, 111, 62, 143, 194, 245, 60, 223, 167, 10, 62, 255, 127, 0, 0, 179, 157, 111, 62, 143, 194, 245, 60, 19, 244, 23, 62, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 32, 184, 26, 62, 255, 127, 0, 0, 60, 223, 79, 62, 143, 194, 245, 60, 83, 4, 40, 62, 255, 127, 0, 0)
+}]
+
+[node name="LaunchLights" type="Node3D"]
+script = ExtResource("1_r04k2")
+skill_shot_sound = ExtResource("2_je26j")
+
+[node name="Light1" type="Node3D" parent="."]
+script = ExtResource("2_mdk1r")
+rollover_sound = ExtResource("2_n707c")
+
+[node name="Unlit" type="MeshInstance3D" parent="Light1"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("ArrayMesh_38h45")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="Light1"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
+material_override = ExtResource("4_dn15g")
+mesh = SubResource("ArrayMesh_38h45")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="Light1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97539, 0.25, -6.30574)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Light1/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light1/Detection"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Light2" type="Node3D" parent="."]
+script = ExtResource("2_mdk1r")
+rollover_sound = ExtResource("2_n707c")
+
+[node name="Unlit" type="MeshInstance3D" parent="Light2"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("ArrayMesh_3ya1r")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="Light2"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
+material_override = ExtResource("4_dn15g")
+mesh = SubResource("ArrayMesh_3ya1r")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="Light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.97491, 0.25, -4.92211)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Light2/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light2/Detection"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Light3" type="Node3D" parent="."]
+script = ExtResource("2_mdk1r")
+rollover_sound = ExtResource("2_n707c")
+
+[node name="Unlit" type="MeshInstance3D" parent="Light3"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("ArrayMesh_cf703")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="Light3"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
+material_override = ExtResource("4_dn15g")
+mesh = SubResource("ArrayMesh_cf703")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="Light3"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 4.37763, 0.25, -3.25215)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Light3/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light3/Detection"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Light4" type="Node3D" parent="."]
+script = ExtResource("2_mdk1r")
+rollover_sound = ExtResource("2_n707c")
+
+[node name="Unlit" type="MeshInstance3D" parent="Light4"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("ArrayMesh_1bc4q")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="Light4"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
+material_override = ExtResource("4_dn15g")
+mesh = SubResource("ArrayMesh_1bc4q")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="Light4"]
+transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 4.37987, 0.25, -1.18221)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Light4/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light4/Detection"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Light5" type="Node3D" parent="."]
+script = ExtResource("2_mdk1r")
+rollover_sound = ExtResource("2_n707c")
+
+[node name="Unlit" type="MeshInstance3D" parent="Light5"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("ArrayMesh_6u8m8")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="Light5"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
+material_override = ExtResource("4_dn15g")
+mesh = SubResource("ArrayMesh_6u8m8")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="Light5"]
+transform = Transform3D(0.951637, 0, -0.307224, 0, 1, 0, 0.307224, 0, 0.951637, 4.37251, 0.25, 0.941328)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Light5/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light5/Detection"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Light6" type="Node3D" parent="."]
+script = ExtResource("2_mdk1r")
+rollover_sound = ExtResource("2_n707c")
+
+[node name="Unlit" type="MeshInstance3D" parent="Light6"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("ArrayMesh_ph4co")
+skeleton = NodePath("../../..")
+
+[node name="Lit" type="MeshInstance3D" parent="Light6"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+visible = false
+material_override = ExtResource("4_dn15g")
+mesh = SubResource("ArrayMesh_ph4co")
+skeleton = NodePath("../../..")
+
+[node name="Detection" type="Area3D" parent="Light6"]
+transform = Transform3D(0.95357, 0, -0.301172, 0, 1, 0, 0.301172, 0, 0.95357, 4.38019, 0.25, 2.98946)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Light6/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light6/Detection"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="SkillShot" type="Node3D" parent="."]
+
+[node name="Detection" type="Area3D" parent="SkillShot"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.68019, 0.25, 2.68946)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="SkillShot/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SkillShot/Detection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Exit" type="Node3D" parent="."]
+
+[node name="Detection" type="Area3D" parent="Exit"]
+transform = Transform3D(-0.426064, 0, -0.904693, 0, 1, 0, 0.904693, 0, -0.426064, 1.83873, 0.25, -7.06677)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Rollover_Audio" type="AudioStreamPlayer3D" parent="Exit/Detection"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Exit/Detection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ngf4e")
+
+[connection signal="target_hit" from="Light1" to="." method="_on_light_1_target_hit"]
+[connection signal="body_entered" from="Light1/Detection" to="Light1" method="_on_area_3d_body_entered"]
+[connection signal="target_hit" from="Light2" to="." method="_on_light_2_target_hit"]
+[connection signal="body_entered" from="Light2/Detection" to="Light2" method="_on_area_3d_body_entered"]
+[connection signal="target_hit" from="Light3" to="." method="_on_light_3_target_hit"]
+[connection signal="body_entered" from="Light3/Detection" to="Light3" method="_on_area_3d_body_entered"]
+[connection signal="target_hit" from="Light4" to="." method="_on_light_4_target_hit"]
+[connection signal="body_entered" from="Light4/Detection" to="Light4" method="_on_area_3d_body_entered"]
+[connection signal="target_hit" from="Light5" to="." method="_on_light_5_target_hit"]
+[connection signal="body_entered" from="Light5/Detection" to="Light5" method="_on_area_3d_body_entered"]
+[connection signal="target_hit" from="Light6" to="." method="_on_light_6_target_hit"]
+[connection signal="body_entered" from="Light6/Detection" to="Light6" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="SkillShot/Detection" to="." method="_on_skill_shot_body_entered"]
+[connection signal="body_entered" from="Exit/Detection" to="." method="_on_exit_body_entered"]

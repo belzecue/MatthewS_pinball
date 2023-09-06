@@ -9,13 +9,13 @@ func _ready():
 	flip_audio.stream = flip_sound
 
 
-func _on_forward_area_body_entered(body):
+func _on_forward_area_body_entered(_body):
 	if !Global.mute:
 		flip_audio.play()
 	animation_player.play("forward")
 
 
-func _on_backward_area_body_entered(body):
+func _on_backward_area_body_entered(_body):
 	if !Global.mute:
 		flip_audio.play()
 	animation_player.play("backward")
