@@ -12,13 +12,13 @@ func _ready():
 	audio.stream = sound
 
 
-func _on_area_1_body_entered(body):
+func _on_area_1_body_entered(_body):
 	entered_area_1 = true
 	await get_tree().create_timer(reset_time).timeout
 	entered_area_1 = false
 
 
-func _on_area_2_body_entered(body):
+func _on_area_2_body_entered(_body):
 	if entered_area_1 and !Global.mute:
 		audio.play()
 		entered_area_1 = false
