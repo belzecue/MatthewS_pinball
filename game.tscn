@@ -1,8 +1,7 @@
-[gd_scene load_steps=89 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=88 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
-[ext_resource type="Texture2D" uid="uid://nucanroc4c8n" path="res://assets/Table_Perspective.png" id="2_o5qdq"]
 [ext_resource type="Script" path="res://Ball.gd" id="3_524w4"]
 [ext_resource type="AudioStream" uid="uid://cf16pmopwslbg" path="res://assets/sounds/SOUND4.WAV" id="3_oyw5e"]
 [ext_resource type="Material" uid="uid://rojjkshbmnnc" path="res://assets/materials/shiny_steel_mat.tres" id="3_xcxky"]
@@ -62,6 +61,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_knndk"]
+material = ExtResource("3_xcxky")
 radius = 0.2
 height = 0.4
 
@@ -273,21 +273,20 @@ shape = SubResource("SphereShape3D_8r7lu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.355, 0.3, 6.2)
 
 [node name="TableStatic" type="Node3D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite3D" parent="TableStatic"]
 transform = Transform3D(1.95, 0, 0, 0, -8.52372e-08, 1.95, 0, -1.95, -8.52372e-08, -1.41561e-07, 0.01, -7.45058e-09)
 double_sided = false
 texture = ExtResource("10_t2wgq")
 
-[node name="Table_Sprite" type="Sprite3D" parent="TableStatic"]
-transform = Transform3D(2.77, 0, 0, 0, -1.21081e-07, 2.77, 0, -2.77, -1.21081e-07, 3, 0.01, 0.2)
-visible = false
-texture = ExtResource("2_o5qdq")
-
 [node name="Top" type="Sprite3D" parent="TableStatic"]
 transform = Transform3D(1.95, 0, 0, 0, -8.52372e-08, 1.95, 0, -1.95, -8.52372e-08, -1.41561e-07, 0.61, -7.45058e-09)
 double_sided = false
 texture = ExtResource("11_r448a")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Pinball_Table" parent="TableStatic" instance=ExtResource("4_pjfuu")]
 
@@ -407,6 +406,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 8.5)
 shape = SubResource("BoxShape3D_a255l")
 
 [node name="PlayerElements" type="Node3D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="FlipperL" parent="PlayerElements" instance=ExtResource("6_4e6vp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 7.55)
