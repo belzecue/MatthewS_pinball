@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ecwvsf81iku8"]
+
+[ext_resource type="Script" path="res://other_components/sound_effect.gd" id="1_xf36r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oc6bv"]
+size = Vector3(1, 0.5, 0.1)
+
+[node name="Sound_Effect_Large" type="Node3D"]
+script = ExtResource("1_xf36r")
+
+[node name="Area1" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.1)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area1"]
+shape = SubResource("BoxShape3D_oc6bv")
+
+[node name="Area2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -0.1)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area2"]
+shape = SubResource("BoxShape3D_oc6bv")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="body_entered" from="Area1" to="." method="_on_area_1_body_entered"]
+[connection signal="body_entered" from="Area2" to="." method="_on_area_2_body_entered"]

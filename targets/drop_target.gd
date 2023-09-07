@@ -3,8 +3,7 @@ extends StaticBody3D
 @export var hit := false
 
 @onready var animation_player = $AnimationPlayer
-@onready var hit_1 = $Hit1
-@onready var hit_2 = $Hit2
+@onready var hit_audio = $Hit
 @onready var light = $Light
 
 signal target_hit
@@ -13,10 +12,7 @@ signal target_hit
 func on_hit():
 		animation_player.play("hit")
 		Print.from(PrintScope.GLOBAL, "Target %s hit" % [name], Print.VERBOSE)
-		if randi() % 1 == 0:
-			hit_1.play()
-		else:
-			hit_2.play()
+		hit_audio.play()
 		emit_signal("target_hit")
 		hit = true
 		light.activate()

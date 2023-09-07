@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=89 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -29,8 +29,11 @@
 [ext_resource type="PackedScene" uid="uid://41rbxw84k3fh" path="res://targets/scoop.tscn" id="20_x6vd1"]
 [ext_resource type="AudioStream" uid="uid://d5iiooyhmixk" path="res://assets/sounds/SOUND1.WAV" id="23_so7se"]
 [ext_resource type="PackedScene" uid="uid://ycxwk4nvyy0d" path="res://targets/kicker_l.tscn" id="26_rigd4"]
+[ext_resource type="AudioStream" uid="uid://bkmv01ayflv2j" path="res://assets/sounds/SOUND50.WAV" id="27_elbxm"]
 [ext_resource type="PackedScene" uid="uid://cj4xpnevco0bk" path="res://targets/kicker_r.tscn" id="27_odqvy"]
+[ext_resource type="AudioStream" uid="uid://51o37m2henwm" path="res://assets/sounds/SOUND18.WAV" id="28_ammbs"]
 [ext_resource type="PackedScene" uid="uid://tb6beixppwb8" path="res://targets/rollover.tscn" id="28_v646t"]
+[ext_resource type="AudioStream" uid="uid://deewc3apmua55" path="res://assets/sounds/SOUND21.WAV" id="29_recis"]
 [ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="32_c3elj"]
 [ext_resource type="PackedScene" uid="uid://bxkx8hmryh8fa" path="res://other_components/hyperspace_light.tscn" id="33_0ujrn"]
 [ext_resource type="PackedScene" uid="uid://c3vol6gs0tg86" path="res://other_components/launch_lights.tscn" id="34_fj3td"]
@@ -40,6 +43,10 @@
 [ext_resource type="Material" uid="uid://dna2d1116b2fi" path="res://assets/materials/lights/yellow_dim.tres" id="37_q7007"]
 [ext_resource type="Material" uid="uid://bao0i6bl4jhmq" path="res://assets/materials/lights/blue_lit.tres" id="37_qkaru"]
 [ext_resource type="Material" uid="uid://beiuh72byuxxe" path="res://assets/materials/lights/yellow_lit.tres" id="38_oxyr7"]
+[ext_resource type="PackedScene" uid="uid://ecwvsf81iku8" path="res://other_components/sound_effect_large.tscn" id="44_73em5"]
+[ext_resource type="AudioStream" uid="uid://cia71fv8wb3d" path="res://assets/sounds/SOUND30.WAV" id="45_ctwu7"]
+[ext_resource type="PackedScene" uid="uid://bv4q3vocsu2xm" path="res://other_components/sound_effect_small.tscn" id="46_eao8t"]
+[ext_resource type="AudioStream" uid="uid://c8pxl5ulx04c4" path="res://assets/sounds/SOUND25.WAV" id="47_gbmxa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -504,14 +511,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 5.3)
 
 [node name="DropTargets" type="Node3D" parent="ScoreElements"]
 
-[node name="Target_Bank" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
+[node name="Medal_Targets" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
 transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -0.239778, 0, -1.55199)
+reset_sound = ExtResource("27_elbxm")
 
-[node name="Target_Bank2" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
+[node name="Field_Multiplier_Targets" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
 transform = Transform3D(0.843448, 0, 0.537211, 0, 1, 0, -0.537211, 0, 0.843448, -1.49864, 0, -5.20396)
+reset_sound = ExtResource("28_ammbs")
 
-[node name="Target_Bank3" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
+[node name="Booster_Targets" parent="ScoreElements/DropTargets" instance=ExtResource("16_nfyh3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.54824, 0, 1.22864)
+reset_sound = ExtResource("29_recis")
 
 [node name="Scoops" type="Node3D" parent="ScoreElements"]
 
@@ -784,6 +794,24 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lights/RefuelingLights/Light6/Detection"]
 shape = SubResource("BoxShape3D_ngf4e")
+
+[node name="Sound_Effects" type="Node3D" parent="."]
+
+[node name="Refueling" parent="Sound_Effects" instance=ExtResource("44_73em5")]
+transform = Transform3D(0.939913, 0, 0.341413, 0, 1, 0, -0.341413, 0, 0.939913, -1.52272, 0, 0.663199)
+sound = ExtResource("45_ctwu7")
+
+[node name="Sound_Effect_Small1" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
+transform = Transform3D(-0.479596, 0, -0.87749, 0, 1, 0, 0.87749, 0, -0.479596, -3.78368, 0, -6.0368)
+sound = ExtResource("47_gbmxa")
+
+[node name="Sound_Effect_Small2" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
+transform = Transform3D(-0.818942, 0, -0.573877, 0, 1, 0, 0.573877, 0, -0.818942, -3.31351, 9.53674e-07, -0.170891)
+sound = ExtResource("47_gbmxa")
+
+[node name="Sound_Effect_Small3" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.65967, 0, 5.2)
+sound = ExtResource("47_gbmxa")
 
 [connection signal="body_entered" from="TableStatic/OutOfBounds" to="." method="_on_ball_out_of_bounds"]
 [connection signal="body_entered" from="TableStatic/Gutter" to="." method="_on_gutter_body_entered"]

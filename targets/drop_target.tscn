@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://3dk0pqj06df5"]
+[gd_scene load_steps=14 format=3 uid="uid://3dk0pqj06df5"]
 
 [ext_resource type="Script" path="res://targets/drop_target.gd" id="1_ysltf"]
 [ext_resource type="Material" uid="uid://ch2lcp6km82mk" path="res://assets/materials/drop_target_mat.tres" id="2_0lx2w"]
 [ext_resource type="AudioStream" uid="uid://cihintsc2faov" path="res://assets/sounds/SOUND49.WAV" id="3_c4ci8"]
-[ext_resource type="AudioStream" uid="uid://dunjpjbs0olwg" path="res://assets/sounds/SOUND49D.WAV" id="4_jxjj2"]
 [ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="5_6nxof"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kbfp"]
@@ -164,11 +163,8 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_fpsww")
 
-[node name="Hit1" type="AudioStreamPlayer3D" parent="."]
+[node name="Hit" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_c4ci8")
-
-[node name="Hit2" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_jxjj2")
 
 [node name="Light" parent="." instance=ExtResource("5_6nxof")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
