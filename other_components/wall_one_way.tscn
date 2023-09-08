@@ -7,7 +7,7 @@
 size = Vector3(0.1, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kybp2"]
-size = Vector3(0.2, 0.5, 1)
+size = Vector3(0.1, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w46j1"]
 size = Vector3(1, 0.5, 0.8)

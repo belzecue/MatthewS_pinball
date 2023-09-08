@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=96 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -33,8 +33,12 @@
 [ext_resource type="AudioStream" uid="uid://51o37m2henwm" path="res://assets/sounds/SOUND18.WAV" id="28_ammbs"]
 [ext_resource type="PackedScene" uid="uid://tb6beixppwb8" path="res://targets/rollover.tscn" id="28_v646t"]
 [ext_resource type="AudioStream" uid="uid://deewc3apmua55" path="res://assets/sounds/SOUND21.WAV" id="29_recis"]
+[ext_resource type="Script" path="res://targets/scoop.gd" id="30_xqrnj"]
+[ext_resource type="AudioStream" uid="uid://cu34dik4y4suy" path="res://assets/sounds/SOUND43.WAV" id="31_dsy75"]
 [ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="32_c3elj"]
+[ext_resource type="AudioStream" uid="uid://cxjqelq3qbghx" path="res://assets/sounds/SOUND35.WAV" id="32_vmejd"]
 [ext_resource type="PackedScene" uid="uid://bxkx8hmryh8fa" path="res://other_components/hyperspace_light.tscn" id="33_0ujrn"]
+[ext_resource type="AudioStream" uid="uid://updk52jrfh05" path="res://assets/sounds/SOUND57.WAV" id="33_nafb8"]
 [ext_resource type="PackedScene" uid="uid://c3vol6gs0tg86" path="res://other_components/launch_lights.tscn" id="34_fj3td"]
 [ext_resource type="Script" path="res://other_components/hyperspace_light.gd" id="34_pqe4p"]
 [ext_resource type="AudioStream" uid="uid://x26tat050tg7" path="res://assets/sounds/SOUND8.WAV" id="36_8na23"]
@@ -124,6 +128,18 @@ size = Vector3(1, 10, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a255l"]
 size = Vector3(4.5, 1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n65w6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rkgxr"]
+size = Vector3(0.5, 1, 2)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dcroe"]
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jybfq"]
+size = Vector3(1, 1, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_dlsib"]
 material = ExtResource("37_q7007")
@@ -396,6 +412,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1)
 shape = SubResource("BoxShape3D_t2f1f")
 
 [node name="Gutter" type="Area3D" parent="TableStatic"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 metadata/_edit_group_ = true
@@ -510,6 +527,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 5.3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 5.3)
 
 [node name="WallSling1" parent="ScoreElements/Slingshots" instance=ExtResource("15_202e7")]
+force = 15.0
 
 [node name="WallSling2" parent="ScoreElements/Slingshots" instance=ExtResource("16_iv4kx")]
 
@@ -530,22 +548,126 @@ reset_sound = ExtResource("29_recis")
 [node name="Scoops" type="Node3D" parent="ScoreElements"]
 
 [node name="Wormhole1" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94386, 0, -6.09388)
+transform = Transform3D(-0.596533, 0, 0.802589, 0, 1, 0, -0.802589, 0, -0.596533, -1.94386, 0, -6.09388)
+force = 20
 
-[node name="Wormhole2" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.898, 0, 2.01877)
+[node name="Wormhole2" type="Node3D" parent="ScoreElements/Scoops"]
+transform = Transform3D(-0.523228, 0, -0.852193, 0, 1, 0, 0.852193, 0, -0.523228, 2.898, 0, 2.01877)
+script = ExtResource("30_xqrnj")
+force = 30
+enter_sound = ExtResource("31_dsy75")
+exit_sound = ExtResource("31_dsy75")
 
-[node name="Wormhole3" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
-transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 1.35614, 0, -5.39388)
+[node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/Wormhole2"]
+collision_layer = 0
+collision_mask = 2
 
-[node name="Hyperspace" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
-transform = Transform3D(0.791544, 0, -0.611113, 0, 1, 0, 0.611113, 0, 0.791544, 1.81764, -0.00395902, -6.29099)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreElements/Scoops/Wormhole2/Area3D"]
+transform = Transform3D(0.843785, 0, 0.536681, 0, 1, 0, -0.536681, 0, 0.843785, 0.0597113, -0.6, 0.0972531)
+shape = SubResource("BoxShape3D_n65w6")
+
+[node name="Enter_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/Wormhole2"]
+
+[node name="Exit_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/Wormhole2"]
+
+[node name="Throw" type="RayCast3D" parent="ScoreElements/Scoops/Wormhole2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.2, 0.3, 0)
+enabled = false
+
+[node name="Wormhole3" type="Node3D" parent="ScoreElements/Scoops"]
+transform = Transform3D(-0.854703, 0, -0.519117, 0, 1, 0, 0.519117, 0, -0.854703, 1.49551, 0, -5.42618)
+script = ExtResource("30_xqrnj")
+force = 20
+enter_sound = ExtResource("31_dsy75")
+exit_sound = ExtResource("31_dsy75")
+
+[node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/Wormhole3"]
+transform = Transform3D(0.978921, 0, 0.20424, 0, 1, 0, -0.20424, 0, 0.978921, 0, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreElements/Scoops/Wormhole3/Area3D"]
+transform = Transform3D(0.979621, 0, -0.200856, 0, 1, 0, 0.200856, 0, 0.979621, -0.0360875, -0.6, -0.0287621)
+shape = SubResource("BoxShape3D_rkgxr")
+
+[node name="Enter_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/Wormhole3"]
+
+[node name="Exit_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/Wormhole3"]
+
+[node name="Throw" type="RayCast3D" parent="ScoreElements/Scoops/Wormhole3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.2, 0.3, 0)
+enabled = false
+
+[node name="KickerAssist" type="Node3D" parent="ScoreElements/Scoops"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75239, 0, 1.79366)
+script = ExtResource("30_xqrnj")
+force = 20
+enter_sound = ExtResource("31_dsy75")
+exit_sound = ExtResource("31_dsy75")
+
+[node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/KickerAssist"]
+transform = Transform3D(0.978921, 0, 0.20424, 0, 1, 0, -0.20424, 0, 0.978921, -0.0508151, 0, -0.616137)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreElements/Scoops/KickerAssist/Area3D"]
+transform = Transform3D(0.979621, 0, -0.200856, 0, 1, 0, 0.200856, 0, 0.979621, -0.0347903, -0.6, -0.0349792)
+shape = SubResource("BoxShape3D_rkgxr")
+
+[node name="CatchMat" type="StaticBody3D" parent="ScoreElements/Scoops/KickerAssist"]
+transform = Transform3D(0.978921, 0, 0.20424, 0, 1, 0, -0.20424, 0, 0.978921, -0.0508151, -0.4, -0.616137)
+physics_material_override = SubResource("PhysicsMaterial_dcroe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreElements/Scoops/KickerAssist/CatchMat"]
+transform = Transform3D(0.979621, 0, -0.200856, 0, 1, 0, 0.200856, 0, 0.979621, -0.0347903, -0.6, -0.0349792)
+shape = SubResource("BoxShape3D_rkgxr")
+
+[node name="Enter_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/KickerAssist"]
+
+[node name="Exit_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/KickerAssist"]
+
+[node name="Throw" type="RayCast3D" parent="ScoreElements/Scoops/KickerAssist"]
+transform = Transform3D(1.91068e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.6, 0.3, -1.9)
+enabled = false
+
+[node name="BlackHole" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
+transform = Transform3D(0.81535, 0, 0.578968, 0, 1, 0, -0.578968, 0, 0.81535, -2.33999, 0, 0.213831)
+wait_time = 2.0
+force = 30
+enter_sound = ExtResource("33_nafb8")
+exit_sound = null
+
+[node name="Hyperspace" type="Node3D" parent="ScoreElements/Scoops"]
+transform = Transform3D(0.791544, 0, -0.611113, 0, 1, 0, 0.611113, 0, 0.791544, 1.7292, -0.00395902, -6.13114)
+script = ExtResource("30_xqrnj")
+wait_time = 2.0
+force = 40
+enter_sound = ExtResource("32_vmejd")
+exit_sound = ExtResource("33_nafb8")
+
+[node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/Hyperspace"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreElements/Scoops/Hyperspace/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+shape = SubResource("BoxShape3D_jybfq")
+
+[node name="Enter_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/Hyperspace"]
+
+[node name="Exit_Audio" type="AudioStreamPlayer3D" parent="ScoreElements/Scoops/Hyperspace"]
+
+[node name="Throw" type="RayCast3D" parent="ScoreElements/Scoops/Hyperspace"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.2, 0.3, 0)
+enabled = false
 
 [node name="KickerL" parent="ScoreElements/Scoops" instance=ExtResource("26_rigd4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37403, 0.25, 6.31707)
+force = 30.0
 
 [node name="KickerR" parent="ScoreElements/Scoops" instance=ExtResource("27_odqvy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.58321, 0.25, 6.31707)
+force = 30.0
 
 [node name="RolloverTargets" type="Node3D" parent="ScoreElements"]
 
@@ -591,7 +713,7 @@ transform = Transform3D(-0.886914, 0, -0.461934, 0, 1, 0, 0.461934, 0, -0.886914
 transform = Transform3D(0.89345, 0, -0.449163, 0, 1, 0, 0.449163, 0, 0.89345, 1.90528, 0.25, -7.0432)
 
 [node name="Wall3" parent="Walls" instance=ExtResource("19_4y4h5")]
-transform = Transform3D(0.451905, 0, -0.892066, 0, 1, 0, 0.892066, 0, 0.451905, 4.36513, 0.25, 2.93585)
+transform = Transform3D(0.451905, 0, -0.892066, 0, 1, 0, 0.892066, 0, 0.451905, 4.41778, 0.25, 2.90165)
 
 [node name="Wall4" parent="Walls" instance=ExtResource("19_4y4h5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.32302, 0.25, 2.8)
@@ -604,6 +726,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.297
 
 [node name="Lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+metadata/_edit_group_ = true
 
 [node name="ServeLight" parent="Lights" instance=ExtResource("32_c3elj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.8)
@@ -819,6 +942,10 @@ sound = ExtResource("47_gbmxa")
 
 [connection signal="body_entered" from="TableStatic/OutOfBounds" to="." method="_on_ball_out_of_bounds"]
 [connection signal="body_entered" from="TableStatic/Gutter" to="." method="_on_gutter_body_entered"]
+[connection signal="body_entered" from="ScoreElements/Scoops/Wormhole2/Area3D" to="ScoreElements/Scoops/Wormhole2" method="_on_area_3d_body_entered" flags=18]
+[connection signal="body_entered" from="ScoreElements/Scoops/Wormhole3/Area3D" to="ScoreElements/Scoops/Wormhole3" method="_on_area_3d_body_entered" flags=18]
+[connection signal="body_entered" from="ScoreElements/Scoops/KickerAssist/Area3D" to="ScoreElements/Scoops/KickerAssist" method="_on_area_3d_body_entered" flags=18]
+[connection signal="body_entered" from="ScoreElements/Scoops/Hyperspace/Area3D" to="ScoreElements/Scoops/Hyperspace" method="_on_area_3d_body_entered" flags=18]
 [connection signal="body_entered" from="Lights/RefuelingLights/Light1/Detection" to="Lights/RefuelingLights/Light1" method="_on_detection_body_entered" flags=18]
 [connection signal="body_exited" from="Lights/RefuelingLights/Light1/Detection" to="Lights/RefuelingLights/Light1" method="_on_detection_body_exited" flags=18]
 [connection signal="body_entered" from="Lights/RefuelingLights/Light2/Detection" to="Lights/RefuelingLights/Light2" method="_on_detection_body_entered" flags=18]

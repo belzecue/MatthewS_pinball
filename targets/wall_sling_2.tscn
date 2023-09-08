@@ -71,34 +71,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:rotation")
+tracks/1/path = NodePath("Slingshot Band Firing_002:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.456857, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(2.18803, 0.25, -2.15446)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Slingshot Band Firing_002:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -132,30 +108,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true, false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(2.18803, 0.25, -2.15446), Vector3(1.80635, 0.25, -2.36164), Vector3(2.18803, 0.25, -2.15446)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionShape3D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -0.456857, 0), Vector3(0, -0.768503, 0), Vector3(0, -0.456857, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8whjw"]
 _data = {
@@ -169,6 +121,9 @@ size = Vector3(0.2, 0.5, 1)
 [node name="WallSling2" type="AnimatableBody3D"]
 script = ExtResource("1_mlyc8")
 fire = ExtResource("2_24k57")
+
+[node name="ShotOrigin" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 2.70179, 0.152668, -1.97677)
 
 [node name="Slingshot_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(-6.7621, 0, 7.80718, 0, 20, 0, -6.55015, 0, -8.05981, 0, 0, 0)
@@ -205,5 +160,6 @@ transform = Transform3D(0.897443, 0, -0.44113, 0, 1, 0, 0.44113, 0, 0.897443, 2.
 shape = SubResource("BoxShape3D_n15vv")
 
 [node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 1.74102, 0, -2.25632)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
