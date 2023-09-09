@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=97 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bakyqmpmq5mmy" path="res://targets/slingshot_r.tscn" id="12_8cwlh"]
 [ext_resource type="PackedScene" uid="uid://c5yomjitgqvie" path="res://player_elements/plunger.tscn" id="13_k0n1t"]
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
+[ext_resource type="PackedScene" uid="uid://bkhhadp1gf2w5" path="res://other_components/screen.tscn" id="14_3gayp"]
 [ext_resource type="PackedScene" uid="uid://vnjbuega05s1" path="res://targets/target.tscn" id="14_kpkpt"]
 [ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
 [ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="15_jutt2"]
@@ -248,7 +249,7 @@ light_indirect_energy = 0.0
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="WorldThings"]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 12.5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.5373, 0.843391, 0, -0.843391, 0.5373, 0, 7.53, 8.225)
 current = true
 
 [node name="AudioListener3D" type="AudioListener3D" parent="WorldThings/Camera3D"]
@@ -301,8 +302,6 @@ texture = ExtResource("10_t2wgq")
 transform = Transform3D(1.95, 0, 0, 0, -8.52372e-08, 1.95, 0, -1.95, -8.52372e-08, -1.41561e-07, 0.61, -7.45058e-09)
 double_sided = false
 texture = ExtResource("11_r448a")
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Pinball_Table" parent="TableStatic" instance=ExtResource("4_pjfuu")]
 
@@ -421,6 +420,9 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TableStatic/Gutter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 8.5)
 shape = SubResource("BoxShape3D_a255l")
+
+[node name="Screen" parent="." instance=ExtResource("14_3gayp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.157899, 0, 3.15168)
 
 [node name="PlayerElements" type="Node3D" parent="."]
 metadata/_edit_group_ = true

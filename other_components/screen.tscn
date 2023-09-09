@@ -1,0 +1,1822 @@
+[gd_scene load_steps=17 format=3 uid="uid://bkhhadp1gf2w5"]
+
+[ext_resource type="Script" path="res://other_components/screen.gd" id="1_wcpve"]
+[ext_resource type="Material" uid="uid://l8cdoj283ajk" path="res://assets/materials/floor_mat.tres" id="1_xsbb1"]
+[ext_resource type="Script" path="res://other_components/infinity_mirror.gd" id="2_gxh1d"]
+[ext_resource type="Script" path="res://other_components/mirror_level.gd" id="2_xo2t8"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c33h8"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="SystemFont" id="SystemFont_r5j8m"]
+font_names = PackedStringArray("Arcade")
+subpixel_positioning = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_58rfa"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ffywg"]
+flip_faces = true
+top_radius = 1.6
+bottom_radius = 1.6
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hsxc"]
+albedo_color = Color(0, 0.0862745, 0.658824, 1)
+emission = Color(0.294118, 0, 0.960784, 1)
+emission_energy_multiplier = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyaw1"]
+albedo_color = Color(0, 0.0862745, 0.658824, 1)
+emission_enabled = true
+emission = Color(0.294118, 0, 0.960784, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlkv5"]
+albedo_color = Color(0, 0.0862745, 0.658824, 1)
+emission_enabled = true
+emission = Color(0.294118, 0, 0.960784, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbgq5"]
+albedo_color = Color(0, 0.0862745, 0.658824, 1)
+emission_enabled = true
+emission = Color(0.294118, 0, 0.960784, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehjn8"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e7llw"]
+material = SubResource("StandardMaterial3D_ehjn8")
+size = Vector2(3.2, 3.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ktg0"]
+albedo_color = Color(0, 0.0862745, 0.658824, 1)
+emission_enabled = true
+emission = Color(0.294118, 0, 0.960784, 1)
+emission_energy_multiplier = 6.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_lv7xj"]
+material = SubResource("StandardMaterial3D_6ktg0")
+size = Vector3(0.05, 0.2, 0.1)
+
+[node name="Screen" type="Node3D"]
+script = ExtResource("1_wcpve")
+current_pattern = 4
+
+[node name="TextureView-DebugOnly" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(256, 256)
+texture = SubResource("ViewportTexture_c33h8")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Display" type="CenterContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/Display"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="Text1" type="Label" parent="SubViewport/Display/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.921569, 0.490196, 0.996078, 1)
+theme_override_fonts/font = SubResource("SystemFont_r5j8m")
+theme_override_font_sizes/font_size = 81
+text = "Score: 1000"
+justification_flags = 131
+clip_text = true
+
+[node name="Text2" type="Label" parent="SubViewport/Display/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.921569, 0.490196, 0.996078, 1)
+theme_override_fonts/font = SubResource("SystemFont_r5j8m")
+theme_override_font_sizes/font_size = 81
+text = "Ball 1     "
+justification_flags = 131
+clip_text = true
+
+[node name="Screen" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 6.55671e-08, 0.5, 0, -0.5, 6.55671e-08, 0, 0, 0)
+visible = false
+texture = SubResource("ViewportTexture_58rfa")
+
+[node name="InfinityMirror" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+material_override = ExtResource("1_xsbb1")
+mesh = SubResource("CylinderMesh_ffywg")
+script = ExtResource("2_gxh1d")
+material_off = SubResource("StandardMaterial3D_4hsxc")
+material_dim = SubResource("StandardMaterial3D_xyaw1")
+material_mid = SubResource("StandardMaterial3D_hlkv5")
+material_lit = SubResource("StandardMaterial3D_rbgq5")
+
+[node name="MirrorLevel_0" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_0"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_0/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_1" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_1"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_1/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_2" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_2"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_2/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_3" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_3"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_3/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_4" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_4"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_4/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_5" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_5"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_5/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_6" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_6"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_6/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_7" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_7"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_7/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_8" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_8"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_8/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_9" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_9"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_9/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_10" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_10"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_10/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_11" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_11"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_11/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="MirrorLevel_12" type="Node3D" parent="InfinityMirror"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.299999, 0)
+script = ExtResource("2_xo2t8")
+
+[node name="Reflection" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_e7llw")
+
+[node name="LEDs" type="Node3D" parent="InfinityMirror/MirrorLevel_12"]
+
+[node name="LED0" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 8.9407e-08, 0, -1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED1" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.388229, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED2" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED3" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED4" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED5" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 1.44889, 0, -0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED6" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED7" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.44889, 0, 0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED8" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED9" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED10" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED11" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.388228, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED12" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, -8.9407e-08, 0, 1.5)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED13" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -0.388229, 0, 1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED14" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.75, 0, 1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED15" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -1.06066, 0, 1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED16" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -1.29904, 0, 0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED17" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1.44889, 0, 0.388228)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED18" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED19" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -1.44889, 0, -0.388229)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED20" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -1.29904, 0, -0.75)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED21" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.06066, 0, -1.06066)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED22" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.75, 0, -1.29904)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="LED23" type="MeshInstance3D" parent="InfinityMirror/MirrorLevel_12/LEDs"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.388228, 0, -1.44889)
+mesh = SubResource("BoxMesh_lv7xj")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 2, 2)
+visible = false
+
+[node name="RotateTimer" type="Timer" parent="."]
+
+[node name="UpdateTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="RotateTimer" to="InfinityMirror" method="_on_timer_timeout"]
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
