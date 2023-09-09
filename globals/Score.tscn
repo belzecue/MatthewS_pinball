@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6g53cul2r5jn"]
+
+[ext_resource type="Script" path="res://globals/Score.gd" id="1_aoqa4"]
+
+[node name="Score" type="Node"]
+script = ExtResource("1_aoqa4")
+score_events = {
+"Attack Bumper Hit": 10,
+"Fuel Target Hit": 10,
+"Fuel Targets Down": 10,
+"Hyperspace Light": 500,
+"Launch Light": 500,
+"Refueling Light": 500,
+"Wormhole": 10
+}

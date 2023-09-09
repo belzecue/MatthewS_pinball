@@ -86,7 +86,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_5a8v3"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="KickerL" type="Node3D"]
+[node name="KickerL" type="Node3D" groups=["ball_reset"]]
 script = ExtResource("1_ia3ex")
 kick_sound = ExtResource("4_oqi81")
 

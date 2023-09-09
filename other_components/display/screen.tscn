@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkhhadp1gf2w5"]
+
+[ext_resource type="Script" path="res://other_components/display/screen.gd" id="1_7efx5"]
+[ext_resource type="PackedScene" uid="uid://bjf2xu4la8ftg" path="res://other_components/display/infinity_mirror.tscn" id="2_ewirx"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_inrq6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="SystemFont" id="SystemFont_r5j8m"]
+font_names = PackedStringArray("Arcade")
+subpixel_positioning = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yi5tc"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Screen" type="Node3D"]
+script = ExtResource("1_7efx5")
+
+[node name="TextureView" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(128, 128)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("ViewportTexture_inrq6")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Display" type="CenterContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/Display"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="Text1" type="Label" parent="SubViewport/Display/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.921569, 0.490196, 0.996078, 1)
+theme_override_fonts/font = SubResource("SystemFont_r5j8m")
+theme_override_font_sizes/font_size = 85
+text = "Score:"
+horizontal_alignment = 1
+justification_flags = 131
+clip_text = true
+
+[node name="Text2" type="Label" parent="SubViewport/Display/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.921569, 0.490196, 0.996078, 1)
+theme_override_fonts/font = SubResource("SystemFont_r5j8m")
+theme_override_font_sizes/font_size = 112
+text = "10000000"
+justification_flags = 131
+clip_text = true
+
+[node name="Text3" type="Label" parent="SubViewport/Display/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.921569, 0.490196, 0.996078, 1)
+theme_override_fonts/font = SubResource("SystemFont_r5j8m")
+theme_override_font_sizes/font_size = 85
+text = "Ball 1"
+horizontal_alignment = 1
+justification_flags = 131
+clip_text = true
+
+[node name="Screen" type="Sprite3D" parent="."]
+transform = Transform3D(0.69, 0, 0, 0, -3.01609e-08, 0.69, 0, -0.69, -3.01609e-08, 0, 0, 0)
+texture = SubResource("ViewportTexture_yi5tc")
+
+[node name="InfinityMirror" parent="." instance=ExtResource("2_ewirx")]
+lightspeed_tick = 0.05
+
+[node name="RotatePatternTimer" type="Timer" parent="."]
+
+[node name="NextPatternTimer" type="Timer" parent="."]
+
+[node name="MarqueeTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="RotatePatternTimer" to="." method="_on_rotate_pattern_timer_timeout"]
+[connection signal="timeout" from="NextPatternTimer" to="." method="_on_next_pattern_timer_timeout"]
+[connection signal="timeout" from="MarqueeTimer" to="." method="_on_marquee_timer_timeout"]

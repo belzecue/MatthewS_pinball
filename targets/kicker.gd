@@ -12,6 +12,10 @@ func _ready():
 	kick_audio.stream = kick_sound
 
 
+func reset():
+	animation_player.play_backwards("kick_ball")
+
+
 func _on_area_3d_body_entered(body):
 	if !animation_player.is_playing():
 		await get_tree().create_timer(delay_time).timeout

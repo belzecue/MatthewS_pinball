@@ -6,11 +6,19 @@ class_name Light
 var _is_lit := false
 
 
+func _ready():
+	self.add_to_group("ball_reset")
+
+
 func toggle():
 	if !_is_lit:
 		activate()
 	else:
 		deactivate()
+
+
+func reset():
+	deactivate()
 
 
 func activate():

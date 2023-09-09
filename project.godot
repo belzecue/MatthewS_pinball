@@ -20,7 +20,8 @@ config/icon="res://icon.png"
 FpsCounter="*res://addons/fps_counter/FpsCounter.tscn"
 Console="*res://addons/godot-console/console/src/Console.tscn"
 Print="*res://addons/sdg-print/Print.tscn"
-Global="*res://Global.tscn"
+Global="*res://globals/Global.tscn"
+Score="*res://globals/Score.tscn"
 
 [display]
 

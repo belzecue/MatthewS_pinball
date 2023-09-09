@@ -1,25 +1,31 @@
 extends Node
 
-@onready var ball = $Ball
-@onready var ball_start = $BallStart
-@onready var camera = $WorldThings/Camera3D
-@onready var boot_sound = $WorldThings/BootSound
-@onready var serve_sound = $WorldThings/ServeSound
-@onready var crash_sound = $WorldThings/CrashSound
-@onready var game_lost = $WorldThings/GameLost
-@onready var logger = Print.get_logger(PrintScope.GLOBAL)
-@onready var glass = $TableStatic/Glass
-@onready var serve_light = $Lights/ServeLight
+@export var tick_times := {
+	Global.Mode.BOOT: 0.2,
+	Global.Mode.DEMO: 0.5,
+	Global.Mode.GAMEOVER: 3,
+	Global.Mode.IDLE: null,
+	Global.Mode.PLAYING: 3,
+}
+
+@onready var ball := $Ball
+@onready var ball_start := $BallStart
+@onready var camera := $WorldThings/Camera3D
+@onready var boot_sound := $WorldThings/BootSound
+@onready var serve_sound := $WorldThings/ServeSound
+@onready var crash_sound := $WorldThings/CrashSound
+@onready var game_lost := $WorldThings/GameLost
+@onready var logger := Print.get_logger(PrintScope.GLOBAL)
+@onready var glass := $TableStatic/Glass
+@onready var serve_light := $Lights/ServeLight
+@onready var screen: Screen = $Screen
+@onready var tick := $WorldThings/Tick
 
 var resetting := true
 
 
 func _ready():
-	if !Global.skip_intro:
-		if !Global.mute:
-			boot_sound.play()
-		await get_tree().create_timer(5).timeout
-	serve()
+	boot()
 
 
 func _physics_process(_delta):
@@ -27,18 +33,49 @@ func _physics_process(_delta):
 		ball.move(ball_start.position)
 
 
+func boot():
+	Global.game_mode = Global.Mode.BOOT
+	screen.set_pattern("Boot")
+	if !Global.skip_intro:
+		if !Global.mute:
+			boot_sound.play()
+		await get_tree().create_timer(1).timeout
+		screen.text_mode = Screen.TEXT_TYPE.START
+		screen.set_pattern("Vortex")
+		await get_tree().create_timer(4).timeout
+	logger.info("Game Start.")
+	Global.game_mode = Global.Mode.PLAYING
+	serve()
+
+
 func serve():
+	screen.text_mode = Screen.TEXT_TYPE.SERVE
+	screen.set_pattern("Flash")
 	serve_light.activate()
+
 	if !Global.mute:
 		serve_sound.play()
 		await get_tree().create_timer(1).timeout
 	resetting = false
 	ball.move(ball_start.position)
+	
+	screen.text_mode = Screen.TEXT_TYPE.SCORE
+	screen.set_pattern("Spin")
 	serve_light.deactivate()
 
 
+func demo():
+	Global.game_mode = Global.Mode.DEMO
+	screen.set_pattern("Demo")
+	screen.text_mode = Screen.TEXT_TYPE.DEMO
+
+
 func _input(event):
-	if Global.debug_mode and event is InputEventMouseButton and event.pressed:
+	if (Global.game_mode == Global.Mode.GAMEOVER or Global.game_mode == Global.Mode.DEMO) and \
+		(event is InputEventJoypadButton or event is InputEventKey):
+		boot()
+	
+	if Global.debug_mode and event is InputEventMouseButton and event.pressed and event.button_index == 2:
 		var ray_from = camera.project_ray_origin(event.position)
 		var ray_to = ray_from + camera.project_ray_normal(event.position) * 1000  # Adjust this based on your scene depth
 
@@ -70,5 +107,25 @@ func _on_gutter_body_entered(_body):
 			logger.info("Ball entered gutter.")
 			crash_sound.play()
 			await get_tree().create_timer(2).timeout
-		serve()
+		Score.add_ball()
+		if Score.is_game_over():
+			Global.game_mode = Global.Mode.GAMEOVER
+			for node in get_tree().get_nodes_in_group("game_reset"):
+				node.reset()
+			screen.text_mode = Screen.TEXT_TYPE.GAMEOVER
+			await get_tree().create_timer(10).timeout
+			if Global.game_mode == Global.Mode.GAMEOVER:
+				demo()
+		else:
+			for node in get_tree().get_nodes_in_group("ball_reset"):
+				node.reset()
+			serve()
 
+
+func _on_tick_timeout():
+	match Global.game_mode:
+		Global.Mode.BOOT or Global.Mode.DEMO:
+			for node in get_tree().get_nodes_in_group("flash"):
+				node.flash()
+		_:
+			pass

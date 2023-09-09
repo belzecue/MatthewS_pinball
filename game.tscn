@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bakyqmpmq5mmy" path="res://targets/slingshot_r.tscn" id="12_8cwlh"]
 [ext_resource type="PackedScene" uid="uid://c5yomjitgqvie" path="res://player_elements/plunger.tscn" id="13_k0n1t"]
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
-[ext_resource type="PackedScene" uid="uid://bkhhadp1gf2w5" path="res://other_components/screen.tscn" id="14_3gayp"]
+[ext_resource type="PackedScene" uid="uid://bkhhadp1gf2w5" path="res://other_components/display/screen.tscn" id="14_3gayp"]
 [ext_resource type="PackedScene" uid="uid://vnjbuega05s1" path="res://targets/target.tscn" id="14_kpkpt"]
 [ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
 [ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="15_jutt2"]
@@ -249,7 +249,7 @@ light_indirect_energy = 0.0
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="WorldThings"]
-transform = Transform3D(1, 0, 0, 0, 0.5373, 0.843391, 0, -0.843391, 0.5373, 0, 7.53, 8.225)
+transform = Transform3D(1, 0, 0, 0, 0.398749, 0.91706, 0, -0.91706, 0.398749, 0, 9.59, 6.76)
 current = true
 
 [node name="AudioListener3D" type="AudioListener3D" parent="WorldThings/Camera3D"]
@@ -267,6 +267,10 @@ stream = ExtResource("4_jgorw")
 
 [node name="GameLost" type="AudioStreamPlayer3D" parent="WorldThings"]
 stream = ExtResource("4_unsr5")
+
+[node name="Tick" type="Timer" parent="WorldThings"]
+wait_time = 0.1
+autostart = true
 
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
@@ -638,6 +642,7 @@ wait_time = 2.0
 force = 30
 enter_sound = ExtResource("33_nafb8")
 exit_sound = null
+janky_bugfix = false
 
 [node name="Hyperspace" type="Node3D" parent="ScoreElements/Scoops"]
 transform = Transform3D(0.791544, 0, -0.611113, 0, 1, 0, 0.611113, 0, 0.791544, 1.7292, -0.00395902, -6.13114)
@@ -760,6 +765,7 @@ transform = Transform3D(0.824284, 0, 0.566176, 0, 1, 0, -0.566176, 0, 0.824284, 
 script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
+score_event = "Refueling Light"
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light1"]
@@ -788,6 +794,7 @@ transform = Transform3D(0.827424, 0, 0.561578, 0, 1, 0, -0.561578, 0, 0.827424, 
 script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
+score_event = "Refueling Light"
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light2"]
@@ -816,6 +823,7 @@ transform = Transform3D(0.825448, 0, 0.564477, 0, 1, 0, -0.564477, 0, 0.825448, 
 script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
+score_event = "Refueling Light"
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light3"]
@@ -844,6 +852,7 @@ transform = Transform3D(0.839762, 0, 0.542954, 0, 1, 0, -0.542954, 0, 0.839762, 
 script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
+score_event = "Refueling Light"
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light4"]
@@ -873,6 +882,7 @@ transform = Transform3D(0.928868, 0, 0.370412, 0, 1, 0, -0.370412, 0, 0.928868, 
 script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
+score_event = "Refueling Light"
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light5"]
@@ -901,6 +911,7 @@ transform = Transform3D(0.984387, 0, 0.17602, 0, 1, 0, -0.17602, 0, 0.984387, -4
 script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
+score_event = "Refueling Light"
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light6"]
@@ -942,6 +953,7 @@ sound = ExtResource("47_gbmxa")
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.65967, 0, 5.2)
 sound = ExtResource("47_gbmxa")
 
+[connection signal="timeout" from="WorldThings/Tick" to="." method="_on_tick_timeout"]
 [connection signal="body_entered" from="TableStatic/OutOfBounds" to="." method="_on_ball_out_of_bounds"]
 [connection signal="body_entered" from="TableStatic/Gutter" to="." method="_on_gutter_body_entered"]
 [connection signal="body_entered" from="ScoreElements/Scoops/Wormhole2/Area3D" to="ScoreElements/Scoops/Wormhole2" method="_on_area_3d_body_entered" flags=18]
