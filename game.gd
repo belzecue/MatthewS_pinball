@@ -22,6 +22,7 @@ var resetting := true
 var tick_count := 0
 
 func _ready():
+	Score.connect("high_score", _on_high_score_run)
 	if Global.game_mode == Global.Mode.BOOT:
 		boot()
 	elif Global.game_mode == Global.Mode.DEMO:
@@ -63,13 +64,18 @@ func serve():
 	resetting = false
 	ball.move(ball_start.position)
 	
-	screen.text_mode = Screen.TEXT_TYPE.SCORE
-	screen.set_pattern("Spin")
+	if Score.cur_is_high_score:
+		screen.text_mode = Screen.TEXT_TYPE.HIGH_SCORE
+		screen.set_pattern("Epic")
+	else:
+		screen.text_mode = Screen.TEXT_TYPE.SCORE
+		screen.set_pattern("Spin")
 	serve_light.deactivate()
 
 
 func demo():
 	tick.start(tick_times[Global.Mode.DEMO])
+	Score.reset()
 	tick_count = 0
 	Global.game_mode = Global.Mode.DEMO
 	screen.set_pattern("Demo")
@@ -129,6 +135,11 @@ func _on_gutter_body_entered(_body):
 		else:
 			reset()
 			serve()
+
+
+func _on_high_score_run():
+	screen.text_mode = Screen.TEXT_TYPE.HIGH_SCORE
+	screen.set_pattern("Epic")
 
 
 func _on_tick_timeout():
