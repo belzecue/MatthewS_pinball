@@ -5,6 +5,7 @@ extends Node3D
 @export var enter_sound : AudioStreamWAV
 @export var exit_sound : AudioStreamWAV
 @export var janky_bugfix: bool = true
+@export var score_event := "Scoop Activated"
 @onready var enter_audio := $Enter_Audio
 @onready var exit_audio := $Exit_Audio
 @onready var throw := $Throw
@@ -16,21 +17,18 @@ func _ready():
 	exit_audio.stream = exit_sound
 
 
-func reset():
-	active = false
-
-
 func _on_area_3d_body_entered(body: RigidBody3D):
 	if !active:
 		active = true
+		Score.event(score_event)
 		if !Global.mute and enter_audio.stream != null:
 			enter_audio.play()
 		if janky_bugfix:
 			body.move(Vector3.DOWN * 10000)
 		
-		Print.from(PrintScope.GLOBAL, "%s Scoop activated. Throwing from %s with force %s" % [name, throw.global_position, -throw.basis.y * force], Print.VERBOSE)
 		await get_tree().create_timer(wait_time).timeout
 		if !Global.mute and exit_audio.stream != null:
 			exit_audio.play()
+		Print.from(PrintScope.GLOBAL, "%s Scoop activated. Throwing from %s with force %s" % [name, throw.global_position, -throw.basis.y * force], Print.VERBOSE)
 		body.throw(throw.global_position, -throw.global_transform.basis.y * force)
 		active = false

@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://3dk0pqj06df5" path="res://targets/drop_target.tscn" id="1_b36yd"]
 [ext_resource type="PackedScene" uid="uid://ikhxblbjy5ch" path="res://other_components/light.tscn" id="2_hf2kt"]
 
-[node name="Target_Bank" type="Node3D"]
+[node name="Target_Bank" type="Node3D" groups=["ball_reset", "boot", "demo"]]
 script = ExtResource("1_824i5")
+score_events = ["Drop Targets 1", "Drop Targets 2", "Drop Targets 3"]
 
 [node name="Light" parent="." instance=ExtResource("2_hf2kt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 0.3)

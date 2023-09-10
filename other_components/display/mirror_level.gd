@@ -32,7 +32,6 @@ func set_leds_brightness(values := brightness_values) -> void:
 func set_led_brightness(led: MeshInstance3D, brightness: int) -> void:
 	if brightness < 0 or brightness > 3:
 		Print.from(PrintScope.GLOBAL, "Invalid brightness value: %s" % [brightness], Print.ERROR)
-		printerr("Invalid brightness value: ", brightness)
 		return
 
 	match brightness:

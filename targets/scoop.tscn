@@ -5,7 +5,7 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n65w6"]
 
-[node name="Scoop" type="Node3D" groups=["ball_reset"]]
+[node name="Scoop" type="Node3D"]
 script = ExtResource("1_5hat5")
 enter_sound = ExtResource("2_x5tja")
 exit_sound = ExtResource("2_x5tja")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://dkdinvtxg00hn"]
+[gd_scene load_steps=102 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://c5yomjitgqvie" path="res://player_elements/plunger.tscn" id="13_k0n1t"]
 [ext_resource type="PackedScene" uid="uid://cr4r3j0284wod" path="res://targets/spinner.tscn" id="13_lg5d3"]
 [ext_resource type="PackedScene" uid="uid://bkhhadp1gf2w5" path="res://other_components/display/screen.tscn" id="14_3gayp"]
+[ext_resource type="Shape3D" uid="uid://ho1wn8bj2cw4" path="res://assets/fuel_ramp_col.tres" id="14_30qc6"]
 [ext_resource type="PackedScene" uid="uid://vnjbuega05s1" path="res://targets/target.tscn" id="14_kpkpt"]
 [ext_resource type="PackedScene" uid="uid://kri7qhxrl62h" path="res://targets/wall_sling_1.tscn" id="15_202e7"]
 [ext_resource type="Material" uid="uid://ljplomrcu0pu" path="res://assets/materials/black_mat.tres" id="15_jutt2"]
@@ -27,6 +28,7 @@
 [ext_resource type="Material" uid="uid://b8cv8qlhnv540" path="res://assets/materials/steel_mat.tres" id="18_fmvog"]
 [ext_resource type="PackedScene" uid="uid://bpwq1dboxy6y4" path="res://other_components/wall_one_way.tscn" id="19_4y4h5"]
 [ext_resource type="PackedScene" uid="uid://41rbxw84k3fh" path="res://targets/scoop.tscn" id="20_x6vd1"]
+[ext_resource type="Script" path="res://targets/standup_target_bank.gd" id="22_ydxux"]
 [ext_resource type="AudioStream" uid="uid://d5iiooyhmixk" path="res://assets/sounds/SOUND1.WAV" id="23_so7se"]
 [ext_resource type="PackedScene" uid="uid://ycxwk4nvyy0d" path="res://targets/kicker_l.tscn" id="26_rigd4"]
 [ext_resource type="AudioStream" uid="uid://bkmv01ayflv2j" path="res://assets/sounds/SOUND50.WAV" id="27_elbxm"]
@@ -42,11 +44,13 @@
 [ext_resource type="AudioStream" uid="uid://updk52jrfh05" path="res://assets/sounds/SOUND57.WAV" id="33_nafb8"]
 [ext_resource type="PackedScene" uid="uid://c3vol6gs0tg86" path="res://other_components/launch_lights.tscn" id="34_fj3td"]
 [ext_resource type="Script" path="res://other_components/hyperspace_light.gd" id="34_pqe4p"]
+[ext_resource type="AudioStream" uid="uid://btbjnjifda81p" path="res://assets/sounds/SOUND563.WAV" id="35_ki313"]
 [ext_resource type="AudioStream" uid="uid://x26tat050tg7" path="res://assets/sounds/SOUND8.WAV" id="36_8na23"]
 [ext_resource type="Material" uid="uid://d3xbod8867cvd" path="res://assets/materials/lights/blue_dim.tres" id="36_jyt1p"]
 [ext_resource type="Material" uid="uid://dna2d1116b2fi" path="res://assets/materials/lights/yellow_dim.tres" id="37_q7007"]
 [ext_resource type="Material" uid="uid://bao0i6bl4jhmq" path="res://assets/materials/lights/blue_lit.tres" id="37_qkaru"]
 [ext_resource type="Material" uid="uid://beiuh72byuxxe" path="res://assets/materials/lights/yellow_lit.tres" id="38_oxyr7"]
+[ext_resource type="Script" path="res://targets/rollover_bank.gd" id="39_b8o1o"]
 [ext_resource type="PackedScene" uid="uid://ecwvsf81iku8" path="res://other_components/sound_effect_large.tscn" id="44_73em5"]
 [ext_resource type="AudioStream" uid="uid://cia71fv8wb3d" path="res://assets/sounds/SOUND30.WAV" id="45_ctwu7"]
 [ext_resource type="PackedScene" uid="uid://bv4q3vocsu2xm" path="res://other_components/sound_effect_small.tscn" id="46_eao8t"]
@@ -129,6 +133,11 @@ size = Vector3(1, 10, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a255l"]
 size = Vector3(4.5, 1, 0.2)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6up4n"]
+friction = 0.0
+bounce = 1.0
+absorbent = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n65w6"]
 
@@ -425,6 +434,13 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 8.5)
 shape = SubResource("BoxShape3D_a255l")
 
+[node name="FuelRamp" type="StaticBody3D" parent="TableStatic"]
+physics_material_override = SubResource("PhysicsMaterial_6up4n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TableStatic/FuelRamp"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+shape = ExtResource("14_30qc6")
+
 [node name="Screen" parent="." instance=ExtResource("14_3gayp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.157899, 0, 3.15168)
 
@@ -476,53 +492,85 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37, 0.2, -3)
 
 [node name="Chute_Spinner" parent="ScoreElements/Spinners" instance=ExtResource("13_lg5d3")]
 transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 2.93, 0.2, -1.6)
+score_event = "Warp Spinner"
 
 [node name="Targets" type="Node3D" parent="ScoreElements"]
 
-[node name="Target1" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Space_Warp_Target" parent="ScoreElements/Targets" groups=["ball_reset", "boot"] instance=ExtResource("14_kpkpt")]
 transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 1.93223, 0, -1.40426)
+score_event = "Space Warp Target Hit"
 
-[node name="Target2" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Right_Hazard_Targets" type="Node3D" parent="ScoreElements/Targets" groups=["ball_reset", "boot", "demo"]]
+script = ExtResource("22_ydxux")
+score_event = "Hazard Targets Down"
+
+[node name="Target2" parent="ScoreElements/Targets/Right_Hazard_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(0.310295, 0, -0.950641, 0, 1, 0, 0.950641, 0, 0.310295, 2.17685, 0, -4.18933)
+score_event = "Hazard Target Hit"
 
-[node name="Target3" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target3" parent="ScoreElements/Targets/Right_Hazard_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(0.153814, 0, -0.9881, 0, 1, 0, 0.9881, 0, 0.153814, 2.28262, 0, -3.74807)
+score_event = "Hazard Target Hit"
 
-[node name="Target4" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target4" parent="ScoreElements/Targets/Right_Hazard_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(0.0138922, 0, -0.999904, 0, 1, 0, 0.999904, 0, 0.0138922, 2.33569, 0, -3.27267)
+score_event = "Hazard Target Hit"
 
-[node name="Target5" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 2.39364)
+[node name="Mission_Targets" type="Node3D" parent="ScoreElements/Targets" groups=["ball_reset", "boot", "demo"]]
+script = ExtResource("22_ydxux")
+score_event = "Mission Targets Down"
 
-[node name="Target6" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 2.89364)
-
-[node name="Target7" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target5" parent="ScoreElements/Targets/Mission_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 1.89364)
+score_event = "Mission Target Hit"
 
-[node name="Target8" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target6" parent="ScoreElements/Targets/Mission_Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 2.39364)
+score_event = "Mission Target Hit"
+
+[node name="Target7" parent="ScoreElements/Targets/Mission_Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76893, 0, 2.89364)
+score_event = "Mission Target Hit"
+
+[node name="Left_Hazard_Targets" type="Node3D" parent="ScoreElements/Targets" groups=["ball_reset", "boot", "demo"]]
+script = ExtResource("22_ydxux")
+score_event = "Hazard Targets Down"
+
+[node name="Target8" parent="ScoreElements/Targets/Left_Hazard_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.63659, 0, -3.45868)
+score_event = "Hazard Target Hit"
 
-[node name="Target9" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target9" parent="ScoreElements/Targets/Left_Hazard_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(-0.122822, 0, 0.992429, 0, 1, 0, -0.992429, 0, -0.122822, -3.60362, 0, -2.98111)
+score_event = "Hazard Target Hit"
 
-[node name="Target10" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target10" parent="ScoreElements/Targets/Left_Hazard_Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(-0.349652, 0, 0.93688, 0, 1, 0, -0.93688, 0, -0.349652, -3.49664, 0, -2.50526)
+score_event = "Hazard Target Hit"
 
-[node name="Target11" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Fuel Targets" type="Node3D" parent="ScoreElements/Targets" groups=["ball_reset", "boot", "demo"]]
+script = ExtResource("22_ydxux")
+score_event = "Fuel Targets Down"
+
+[node name="Target11" parent="ScoreElements/Targets/Fuel Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(-0.349652, 0, 0.93688, 0, 1, 0, -0.93688, 0, -0.349652, -4.47387, 0, -6.48693)
+score_event = "Fuel Target Hit"
 
-[node name="Target12" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
-transform = Transform3D(0.925521, 0, -0.378697, 0, 1, 0, 0.378697, 0, 0.925521, -2.99534, 0.00442398, -7.9159)
-
-[node name="Target13" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
-transform = Transform3D(0.547461, 0, -0.836831, 0, 1, 0, 0.836831, 0, 0.547461, -2.44185, 0.00442386, -7.45662)
-
-[node name="Target14" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target12" parent="ScoreElements/Targets/Fuel Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(0.44149, 0, 0.897266, 0, 1, 0, -0.897266, 0, 0.44149, -4.43116, 0.00442386, -7.389)
+score_event = "Fuel Target Hit"
 
-[node name="Target15" parent="ScoreElements/Targets" instance=ExtResource("14_kpkpt")]
+[node name="Target13" parent="ScoreElements/Targets/Fuel Targets" instance=ExtResource("14_kpkpt")]
 transform = Transform3D(0.908574, 0, 0.417725, 0, 1, 0, -0.417725, 0, 0.908574, -3.84011, 0.00442386, -7.92091)
+score_event = "Fuel Target Hit"
+
+[node name="Target14" parent="ScoreElements/Targets/Fuel Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.925521, 0, -0.378697, 0, 1, 0, 0.378697, 0, 0.925521, -2.99534, 0.00442398, -7.9159)
+score_event = "Fuel Target Hit"
+
+[node name="Target15" parent="ScoreElements/Targets/Fuel Targets" instance=ExtResource("14_kpkpt")]
+transform = Transform3D(0.547461, 0, -0.836831, 0, 1, 0, 0.836831, 0, 0.547461, -2.44185, 0.00442386, -7.45662)
+score_event = "Fuel Target Hit"
 
 [node name="Slingshots" type="Node3D" parent="ScoreElements"]
 
@@ -556,6 +604,7 @@ reset_sound = ExtResource("29_recis")
 [node name="Wormhole1" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
 transform = Transform3D(-0.596533, 0, 0.802589, 0, 1, 0, -0.802589, 0, -0.596533, -1.94386, 0, -6.09388)
 force = 20
+score_event = "Wormhole Activated"
 
 [node name="Wormhole2" type="Node3D" parent="ScoreElements/Scoops"]
 transform = Transform3D(-0.523228, 0, -0.852193, 0, 1, 0, 0.852193, 0, -0.523228, 2.898, 0, 2.01877)
@@ -563,6 +612,7 @@ script = ExtResource("30_xqrnj")
 force = 30
 enter_sound = ExtResource("31_dsy75")
 exit_sound = ExtResource("31_dsy75")
+score_event = "Wormhole Activated"
 
 [node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/Wormhole2"]
 collision_layer = 0
@@ -586,6 +636,7 @@ script = ExtResource("30_xqrnj")
 force = 20
 enter_sound = ExtResource("31_dsy75")
 exit_sound = ExtResource("31_dsy75")
+score_event = "Wormhole Activated"
 
 [node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/Wormhole3"]
 transform = Transform3D(0.978921, 0, 0.20424, 0, 1, 0, -0.20424, 0, 0.978921, 0, 0, 0)
@@ -610,6 +661,7 @@ script = ExtResource("30_xqrnj")
 force = 20
 enter_sound = ExtResource("31_dsy75")
 exit_sound = ExtResource("31_dsy75")
+score_event = "Kicker Assist"
 
 [node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/KickerAssist"]
 transform = Transform3D(0.978921, 0, 0.20424, 0, 1, 0, -0.20424, 0, 0.978921, -0.0508151, 0, -0.616137)
@@ -637,12 +689,13 @@ transform = Transform3D(1.91068e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114
 enabled = false
 
 [node name="BlackHole" parent="ScoreElements/Scoops" instance=ExtResource("20_x6vd1")]
-transform = Transform3D(0.81535, 0, 0.578968, 0, 1, 0, -0.578968, 0, 0.81535, -2.33999, 0, 0.213831)
+transform = Transform3D(0.81535, 0, 0.578968, 0, 1, 0, -0.578968, 0, 0.81535, -2.34, -0.03, 0.214)
 wait_time = 2.0
 force = 30
 enter_sound = ExtResource("33_nafb8")
-exit_sound = null
+exit_sound = ExtResource("35_ki313")
 janky_bugfix = false
+score_event = "Black Hole"
 
 [node name="Hyperspace" type="Node3D" parent="ScoreElements/Scoops"]
 transform = Transform3D(0.791544, 0, -0.611113, 0, 1, 0, 0.611113, 0, 0.791544, 1.7292, -0.00395902, -6.13114)
@@ -651,6 +704,7 @@ wait_time = 2.0
 force = 40
 enter_sound = ExtResource("32_vmejd")
 exit_sound = ExtResource("33_nafb8")
+score_event = "Hyperspace"
 
 [node name="Area3D" type="Area3D" parent="ScoreElements/Scoops/Hyperspace"]
 collision_layer = 0
@@ -678,38 +732,57 @@ force = 30.0
 
 [node name="RolloverTargets" type="Node3D" parent="ScoreElements"]
 
-[node name="Rollover" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
+[node name="EntryRollovers" type="Node3D" parent="ScoreElements/RolloverTargets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+script = ExtResource("39_b8o1o")
+score_event = "Entry Lanes Filled"
 
-[node name="Rollover2" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.757688, 0, -6)
+[node name="Rollover1" parent="ScoreElements/RolloverTargets/EntryRollovers" instance=ExtResource("28_v646t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.757688, 0, 0)
+score_event = "Reentry Lane Entered"
 
-[node name="Rollover3" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77739, 0, -6)
+[node name="Rollover2" parent="ScoreElements/RolloverTargets/EntryRollovers" instance=ExtResource("28_v646t")]
+score_event = "Reentry Lane Entered"
 
-[node name="Rollover4" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.60106, 0.642236, 0.953692)
+[node name="Rollover3" parent="ScoreElements/RolloverTargets/EntryRollovers" instance=ExtResource("28_v646t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77739, 0, 0)
+score_event = "Reentry Lane Entered"
 
-[node name="Rollover5" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
+[node name="FuelRollovers" type="Node3D" parent="ScoreElements/RolloverTargets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9478, 0.642236, 1.14651)
+script = ExtResource("39_b8o1o")
+score_event = "Launch Lanes Filled"
 
-[node name="Rollover6" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.28134, 0.642236, 1.34579)
+[node name="Rollover4" parent="ScoreElements/RolloverTargets/FuelRollovers" instance=ExtResource("28_v646t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65326, 0, -0.192818)
+score_event = "Launch Lane Entered"
+
+[node name="Rollover5" parent="ScoreElements/RolloverTargets/FuelRollovers" instance=ExtResource("28_v646t")]
+score_event = "Launch Lane Entered"
+
+[node name="Rollover6" parent="ScoreElements/RolloverTargets/FuelRollovers" instance=ExtResource("28_v646t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.66646, 0, 0.19928)
+score_event = "Launch Lane Entered"
 
 [node name="Rollover7" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.36508, 0, 5.2)
+score_event = "Out Lane Entered"
 
 [node name="Rollover8" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65061, 0, 5.2)
+score_event = "Bonus Lane Entered"
 
 [node name="Rollover9" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.85187, 0, 5.2)
+score_event = "Return Lane Entered"
 
 [node name="Rollover10" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03518, 0, 4.9)
+score_event = "Return Lane Entered"
 
 [node name="Rollover11" parent="ScoreElements/RolloverTargets" instance=ExtResource("28_v646t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6704, 0, 4.9)
+score_event = "Out Lane Entered"
 
 [node name="Walls" type="Node3D" parent="."]
 
@@ -735,10 +808,10 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.297
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 metadata/_edit_group_ = true
 
-[node name="ServeLight" parent="Lights" instance=ExtResource("32_c3elj")]
+[node name="ServeLight" parent="Lights" groups=["boot"] instance=ExtResource("32_c3elj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.8)
 
-[node name="LaunchLights" parent="Lights" instance=ExtResource("34_fj3td")]
+[node name="LaunchLights" parent="Lights" groups=["ball_reset", "boot", "demo"] instance=ExtResource("34_fj3td")]
 
 [node name="HyperspaceLights" type="Node3D" parent="Lights"]
 
@@ -749,14 +822,17 @@ delay_time = 0.5
 [node name="Light2" parent="Lights/HyperspaceLights" instance=ExtResource("33_0ujrn")]
 transform = Transform3D(0.999471, 0, -0.0325097, 0, 1, 0, 0.0325097, 0, 0.999471, 3.37952, 0, -3.2629)
 delay_time = 0.5
+my_pos = 1
 
 [node name="Light3" parent="Lights/HyperspaceLights" instance=ExtResource("33_0ujrn")]
 transform = Transform3D(0.926141, 0, 0.377178, 0, 1, 0, -0.377178, 0, 0.926141, 3.2337, 0, -4.25453)
 delay_time = 0.5
+my_pos = 2
 
 [node name="Light4" parent="Lights/HyperspaceLights" instance=ExtResource("33_0ujrn")]
 transform = Transform3D(0.824284, 0, 0.566176, 0, 1, 0, -0.566176, 0, 0.824284, 2.76389, 0, -5.17612)
 delay_time = 0.5
+my_pos = 3
 
 [node name="RefuelingLights" type="Node3D" parent="Lights"]
 
@@ -766,6 +842,8 @@ script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
 score_event = "Refueling Light"
+light_count = 6
+my_pos = 5
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light1"]
@@ -795,6 +873,8 @@ script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
 score_event = "Refueling Light"
+light_count = 6
+my_pos = 4
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light2"]
@@ -824,6 +904,8 @@ script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
 score_event = "Refueling Light"
+light_count = 6
+my_pos = 3
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light3"]
@@ -853,6 +935,8 @@ script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
 score_event = "Refueling Light"
+light_count = 6
+my_pos = 2
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light4"]
@@ -883,6 +967,8 @@ script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
 score_event = "Refueling Light"
+light_count = 6
+my_pos = 1
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light5"]
@@ -912,6 +998,7 @@ script = ExtResource("34_pqe4p")
 rollover_sound = ExtResource("36_8na23")
 delay_time = 0.5
 score_event = "Refueling Light"
+light_count = 6
 metadata/_edit_group_ = true
 
 [node name="Unlit" type="MeshInstance3D" parent="Lights/RefuelingLights/Light6"]
@@ -937,21 +1024,25 @@ shape = SubResource("BoxShape3D_ngf4e")
 
 [node name="Sound_Effects" type="Node3D" parent="."]
 
-[node name="Refueling" parent="Sound_Effects" instance=ExtResource("44_73em5")]
+[node name="FuelRamp" parent="Sound_Effects" instance=ExtResource("44_73em5")]
 transform = Transform3D(0.939913, 0, 0.341413, 0, 1, 0, -0.341413, 0, 0.939913, -1.52272, 0, 0.663199)
 sound = ExtResource("45_ctwu7")
+score_event = "Fuel Ramp Entered"
 
-[node name="Sound_Effect_Small1" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
+[node name="Refuel1" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
 transform = Transform3D(-0.479596, 0, -0.87749, 0, 1, 0, 0.87749, 0, -0.479596, -3.78368, 0, -6.0368)
 sound = ExtResource("47_gbmxa")
+score_event = "Ship Refueled"
 
-[node name="Sound_Effect_Small2" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
+[node name="Refuel2" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
 transform = Transform3D(-0.818942, 0, -0.573877, 0, 1, 0, 0.573877, 0, -0.818942, -3.31351, 9.53674e-07, -0.170891)
 sound = ExtResource("47_gbmxa")
+score_event = "Ship Refueled"
 
-[node name="Sound_Effect_Small3" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
+[node name="Refuel3" parent="Sound_Effects" instance=ExtResource("46_eao8t")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.65967, 0, 5.2)
 sound = ExtResource("47_gbmxa")
+score_event = "Ship Refueled"
 
 [connection signal="timeout" from="WorldThings/Tick" to="." method="_on_tick_timeout"]
 [connection signal="body_entered" from="TableStatic/OutOfBounds" to="." method="_on_ball_out_of_bounds"]

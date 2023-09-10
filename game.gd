@@ -3,9 +3,6 @@ extends Node
 @export var tick_times := {
 	Global.Mode.BOOT: 0.2,
 	Global.Mode.DEMO: 0.5,
-	Global.Mode.GAMEOVER: 3,
-	Global.Mode.IDLE: null,
-	Global.Mode.PLAYING: 3,
 }
 
 @onready var ball := $Ball
@@ -22,10 +19,13 @@ extends Node
 @onready var tick := $WorldThings/Tick
 
 var resetting := true
-
+var tick_count := 0
 
 func _ready():
-	boot()
+	if Global.game_mode == Global.Mode.BOOT:
+		boot()
+	elif Global.game_mode == Global.Mode.DEMO:
+		demo()
 
 
 func _physics_process(_delta):
@@ -35,7 +35,10 @@ func _physics_process(_delta):
 
 func boot():
 	Global.game_mode = Global.Mode.BOOT
+	Score.reset()
 	screen.set_pattern("Boot")
+	tick.start(tick_times[Global.Mode.BOOT])
+	tick_count = 0
 	if !Global.skip_intro:
 		if !Global.mute:
 			boot_sound.play()
@@ -45,6 +48,7 @@ func boot():
 		await get_tree().create_timer(4).timeout
 	logger.info("Game Start.")
 	Global.game_mode = Global.Mode.PLAYING
+	reset()
 	serve()
 
 
@@ -65,9 +69,16 @@ func serve():
 
 
 func demo():
+	tick.start(tick_times[Global.Mode.DEMO])
+	tick_count = 0
 	Global.game_mode = Global.Mode.DEMO
 	screen.set_pattern("Demo")
 	screen.text_mode = Screen.TEXT_TYPE.DEMO
+
+
+func reset():
+	for node in get_tree().get_nodes_in_group("ball_reset"):
+		node.reset()
 
 
 func _input(event):
@@ -110,22 +121,24 @@ func _on_gutter_body_entered(_body):
 		Score.add_ball()
 		if Score.is_game_over():
 			Global.game_mode = Global.Mode.GAMEOVER
-			for node in get_tree().get_nodes_in_group("game_reset"):
-				node.reset()
 			screen.text_mode = Screen.TEXT_TYPE.GAMEOVER
 			await get_tree().create_timer(10).timeout
 			if Global.game_mode == Global.Mode.GAMEOVER:
+				reset()
 				demo()
 		else:
-			for node in get_tree().get_nodes_in_group("ball_reset"):
-				node.reset()
+			reset()
 			serve()
 
 
 func _on_tick_timeout():
+	tick_count += 1
 	match Global.game_mode:
-		Global.Mode.BOOT or Global.Mode.DEMO:
-			for node in get_tree().get_nodes_in_group("flash"):
-				node.flash()
+		Global.Mode.BOOT:
+			for node in get_tree().get_nodes_in_group("boot"):
+				node.tick(tick_count)
+		Global.Mode.DEMO:
+			for node in get_tree().get_nodes_in_group("demo"):
+				node.tick(tick_count)
 		_:
 			pass

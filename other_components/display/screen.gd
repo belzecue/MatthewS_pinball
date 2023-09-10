@@ -89,7 +89,7 @@ var scroll_text := [false, false, false]
 				scroll_text = [false, false, false]
 				text_1.text = "Game Over"
 				text_2.text = "%7d" % Score.get_score()
-				text_3.text = ""
+				text_3.text = "Your Score"
 			TEXT_TYPE.DEMO:
 				scroll_text = [true, true, false]
 				text_1.text = "  3D Space Pinball  "

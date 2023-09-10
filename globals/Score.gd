@@ -9,8 +9,10 @@ extends Node
 @export var _ball := 1
 
 
-func event(_event: String):
-	add(score_events[_event])
+func event(e_name: String):
+	assert(score_events.has(e_name))
+	Print.from(0, e_name + " %s points!" % score_events[e_name], Print.VERBOSE)
+	add(score_events[e_name])
 
 
 func add(val: int):

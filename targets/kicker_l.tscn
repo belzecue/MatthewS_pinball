@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ycxwk4nvyy0d"]
+[gd_scene load_steps=14 format=3 uid="uid://ycxwk4nvyy0d"]
 
 [ext_resource type="Material" uid="uid://d0v3xytvb7ixe" path="res://assets/materials/pop_bumper_mat.tres" id="1_0q4iw"]
 [ext_resource type="Script" path="res://targets/kicker.gd" id="1_ia3ex"]
@@ -77,10 +77,27 @@ tracks/1/keys = {
 "values": [Vector3(0, -0.5, -2.18557e-08), Vector3(0, -0.5, -2.18557e-08), Vector3(0, -0.1, -4.37114e-09), Vector3(0, -0.5, -2.18557e-08)]
 }
 
+[sub_resource type="Animation" id="Animation_hykiw"]
+resource_name = "reset"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.6, 0), Vector3(0, -0.6, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i52c0"]
 _data = {
 "RESET": SubResource("Animation_1ch3u"),
-"kick_ball": SubResource("Animation_l0xty")
+"kick_ball": SubResource("Animation_l0xty"),
+"reset": SubResource("Animation_hykiw")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5a8v3"]

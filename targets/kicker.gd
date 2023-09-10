@@ -3,9 +3,11 @@ extends Node3D
 @export var force := 10.0
 @export var delay_time := 1.0
 @export var kick_sound: AudioStreamWAV
+@export var score_event := "Kicker Hit"
 @onready var animation_player = $AnimationPlayer
 @onready var kick_audio = $KickAudio
 @onready var throw = $Throw
+var set := false
 
 
 func _ready():
@@ -13,12 +15,16 @@ func _ready():
 
 
 func reset():
-	animation_player.play_backwards("kick_ball")
+	if set:
+		animation_player.play("reset")
+	set = false
 
 
 func _on_area_3d_body_entered(body):
-	if !animation_player.is_playing():
+	if !set:
+		set = true
 		await get_tree().create_timer(delay_time).timeout
+		Score.event(score_event)
 		if !Global.mute:
 			kick_audio.play()
 		animation_player.play("kick_ball")

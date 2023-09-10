@@ -2,6 +2,7 @@ extends AnimatableBody3D
 
 @export var fire: AudioStreamWAV
 @export var force := 10.0
+@export var score_event := "Rebound"
 @onready var animation_player = $AnimationPlayer
 @onready var fire_sound = $FireSound
 @onready var shot_origin = $ShotOrigin
@@ -13,6 +14,7 @@ func _ready():
 
 func _on_area_3d_body_entered(body: RigidBody3D):
 	if !animation_player.is_playing():
+		Score.event(score_event)
 		if !Global.mute:
 			fire_sound.play()
 		animation_player.play("hit")

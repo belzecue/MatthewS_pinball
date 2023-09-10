@@ -17,6 +17,10 @@ func toggle():
 		deactivate()
 
 
+func tick(_tick_count):
+	toggle()
+
+
 func reset():
 	deactivate()
 

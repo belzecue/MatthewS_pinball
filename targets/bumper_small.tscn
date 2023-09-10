@@ -90,6 +90,7 @@ radius = 0.25
 [node name="Bumper-Small" type="AnimatableBody3D"]
 script = ExtResource("1_tn4ux")
 sound = ExtResource("3_cwxsq")
+score_event = "Launch Bumper Hit"
 
 [node name="Small Bumper" type="MeshInstance3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)

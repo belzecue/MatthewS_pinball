@@ -24,7 +24,8 @@ func _physics_process(delta):
 		current_pullback -= return_speed * delta
 	
 	if Input.is_action_just_released("Plunger"):
-		sound.play()
+		if !Global.mute:
+			sound.play()
 		Print.from(PrintScope.GLOBAL, "Plunger Released, Speed %s" % [return_speed])
 	
 	if current_pullback < 0:

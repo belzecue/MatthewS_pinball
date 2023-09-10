@@ -33,7 +33,7 @@ top_radius = 0.01
 bottom_radius = 0.01
 height = 0.2
 
-[node name="Rollover" type="Area3D"]
+[node name="Rollover" type="Area3D" groups=["ball_reset", "boot"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_oydrj")

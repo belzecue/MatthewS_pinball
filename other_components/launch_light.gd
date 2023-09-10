@@ -7,6 +7,11 @@ signal target_hit
 @onready var rollover_audio = $Detection/Rollover_Audio
 
 
+func tick(ticks):
+	if ticks % 6 == 0:
+		toggle()
+
+
 func _ready():
 	rollover_audio.stream = rollover_sound
 

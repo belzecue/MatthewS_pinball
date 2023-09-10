@@ -3,6 +3,7 @@ extends AnimatableBody3D
 @export var sound: AudioStreamWAV
 @onready var animation_player = $AnimationPlayer
 @onready var pop_player = $PopPlayer
+@export var score_event := "Attack Bumper Hit"
 
 
 func _ready():
@@ -11,7 +12,7 @@ func _ready():
 
 func _on_area_3d_body_entered(_body):
 	if !animation_player.is_playing():
+		Score.event(score_event)
 		if !Global.mute:
 			pop_player.play()
-		Print.from(PrintScope.GLOBAL, "Bumper %s hit" % [name], Print.VERBOSE)
 		animation_player.play("hit")
