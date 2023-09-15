@@ -68,7 +68,8 @@ func _on_light_6_target_hit():
 
 func _on_skill_shot_body_entered(_body):
 	if _launching:
-		skill_shot_audio.play()
+		if !Global.mute:
+			skill_shot_audio.play()
 		Score.event(skill_shot_event)
 		delay_reset()
 

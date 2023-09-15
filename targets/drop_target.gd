@@ -13,7 +13,8 @@ signal target_hit
 func on_hit():
 		animation_player.play("hit")
 		Score.event(score_event)
-		hit_audio.play()
+		if !Global.mute:
+			hit_audio.play()
 		emit_signal("target_hit")
 		hit = true
 		light.activate()

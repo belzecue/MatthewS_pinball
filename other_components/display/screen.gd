@@ -70,7 +70,7 @@ var mirror_patterns := {
 	Vortex = [Pattern.new("Quads_CW", 1, 0.05, 1), Pattern.new("Quads_CCW", -1, 0.05, 1)],
 	Spin = [Pattern.new("Quads_Center", 1, 0.2, 0)],
 	Demo = [Pattern.new("Quads_Center", 1, 0.2, 3), Pattern.new("On", 0, 0, 0.1), Pattern.new("Off", 0, 0, 0.1), \
-		Pattern.new("On", 0, 0, 0.1), Pattern.new("Off", 0, 0, 0.1), Pattern.new("Every_Other", 0, 0.2, 3), \
+		Pattern.new("On", 0, 0, 0.1), Pattern.new("Off", 0, 0, 0.1), Pattern.new("Every_Other", 1, 0.2, 3), \
 		Pattern.new("Twos_Center", 1, 0.1, 3), Pattern.new("Twos_Center", -1, 0.1, 3), Pattern.new("Random", 0, 0.1, 3)],
 	Epic = [Pattern.new("Twos_CW", 1, 0.05, 1.5), Pattern.new("Twos_CCW", -1, 0.05, 1.5), Pattern.new("Bounce", 0, 0.05, 1.2),
 		Pattern.new("Quads_CW", 1, 0.1, 1.5), Pattern.new("Quads_CCW", -1, 0.1, 1.5), Pattern.new("Random", 0, 0.1, 1.5)]
