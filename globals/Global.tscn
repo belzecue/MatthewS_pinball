@@ -5,5 +5,3 @@
 [node name="Global" type="Node3D"]
 script = ExtResource("1_pluqg")
 debug_mode = true
-mute = true
-game_mode = 2

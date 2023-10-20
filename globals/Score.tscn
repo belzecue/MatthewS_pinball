@@ -36,6 +36,7 @@ score_events = {
 "Return Lane Entered": 5000,
 "Ship Refueled": 500,
 "Skill Shot": 75000,
+"Space Warp Rollover": 250,
 "Space Warp Target Hit": 500,
 "Warp Spinner": 500,
 "Wormhole Activated": 2500
