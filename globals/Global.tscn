@@ -4,4 +4,3 @@
 
 [node name="Global" type="Node3D"]
 script = ExtResource("1_pluqg")
-debug_mode = true

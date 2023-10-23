@@ -31,7 +31,7 @@ extends Node
 	$"ScoreElements/Bumpers/Bumper-Large", $"ScoreElements/Bumpers/Bumper-Large2", $"ScoreElements/Bumpers/Bumper-Large3",
 	$"ScoreElements/Targets/Fuel Targets/Target11", $"ScoreElements/Targets/Fuel Targets/Target12", $"ScoreElements/Targets/Fuel Targets/Target13", $"ScoreElements/Targets/Fuel Targets/Target14", $"ScoreElements/Targets/Fuel Targets/Target15",
 	$"ScoreElements/Bumpers/Bumper-Large4",
-	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,
+	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,	$ScoreElements/Slingshots/WallSling1, $ScoreElements/Slingshots/WallSling2
 ]
 
 var resetting := true
@@ -65,9 +65,10 @@ func boot():
 		await get_tree().create_timer(1).timeout
 		screen.text_mode = Screen.TEXT_TYPE.SELFTEST
 		self_test()
-		screen.text_mode = Screen.TEXT_TYPE.START
 		if !Global.mute:
 			await boot_sound.finished
+		else:
+			await get_tree().create_timer(8).timeout
 	logger.info("Game Start.")
 	Global.game_mode = Global.Mode.PLAYING
 	reset()
@@ -78,6 +79,7 @@ func self_test():
 	for node in boot_nodes:
 		node.test()
 		await node.test_complete
+	screen.text_mode = Screen.TEXT_TYPE.START
 
 
 func serve():

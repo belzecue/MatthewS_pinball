@@ -108,9 +108,9 @@ var scroll_text := [false, false, false]
 				text_3.text = "initializing"
 			TEXT_TYPE.SELFTEST:
 				scroll_text = [false, true, false]
-				text_1.text = "3D"
-				text_2.text = "  Space Pinball  "
-				text_3.text = "self_test"
+				text_1.text = "BOOT"
+				text_2.text = "SELFTEST"
+				text_3.text = "..."
 			TEXT_TYPE.SERVE:
 				text_3.text = "Serving"
 			TEXT_TYPE.SCORE:
