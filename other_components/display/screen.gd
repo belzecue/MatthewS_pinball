@@ -57,6 +57,7 @@ const pattern_data := {
 enum TEXT_TYPE {
 	OFF,
 	START,
+	SELFTEST,
 	SERVE,
 	SCORE,
 	HIGH_SCORE,
@@ -105,6 +106,11 @@ var scroll_text := [false, false, false]
 				text_1.text = "3D"
 				text_2.text = "  Space Pinball  "
 				text_3.text = "initializing"
+			TEXT_TYPE.SELFTEST:
+				scroll_text = [false, true, false]
+				text_1.text = "3D"
+				text_2.text = "  Space Pinball  "
+				text_3.text = "self_test"
 			TEXT_TYPE.SERVE:
 				text_3.text = "Serving"
 			TEXT_TYPE.SCORE:

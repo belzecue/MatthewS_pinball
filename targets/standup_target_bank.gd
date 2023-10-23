@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var targets = get_children()  # This gets all the child nodes under Targets.
 @export var score_event := "All Targets Down"
+signal test_complete
 
 var total_targets = 0
 var hit_targets = 0
@@ -31,6 +32,14 @@ func reset():
 func tick(tick_count):
 	for i in range(targets.size()):
 		targets[i].tick(tick_count + i)
+
+
+func test():
+	for target in targets:
+		target.test()
+		await target.test_complete
+		
+	emit_signal("test_complete")
 
 
 func reset_all_targets():

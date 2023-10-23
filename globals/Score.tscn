@@ -34,6 +34,7 @@ score_events = {
 "Reentry Lanes Filled": 20000,
 "Refueling Light": 500,
 "Return Lane Entered": 5000,
+"Rollover Target Activated": 250,
 "Ship Refueled": 500,
 "Skill Shot": 75000,
 "Space Warp Rollover": 250,

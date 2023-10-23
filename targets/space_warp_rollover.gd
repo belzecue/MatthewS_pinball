@@ -22,6 +22,11 @@ func tick(ticks):
 		deactivate()
 
 
+func test():
+	rollover_audio.play()
+	emit_signal("test_complete")
+
+
 func _on_detection_body_entered(_body):
 	if !Global.mute and !_is_lit:
 		rollover_audio.play()

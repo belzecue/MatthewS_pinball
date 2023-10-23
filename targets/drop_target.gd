@@ -8,11 +8,11 @@ extends StaticBody3D
 @onready var light := $Light
 
 signal target_hit
+signal test_complete
 
 
 func on_hit():
 		animation_player.play("hit")
-		Score.event(score_event)
 		if !Global.mute:
 			hit_audio.play()
 		emit_signal("target_hit")
@@ -27,6 +27,15 @@ func tick(tick_count: int):
 		light.deactivate()
 
 
+func test():
+	animation_player.play("hit")
+	light.activate()
+	if !Global.mute:
+		hit_audio.play()
+	await animation_player.animation_finished
+	emit_signal("test_complete")
+
+
 func reset():
 	if hit:
 		animation_player.play("reset")
@@ -36,4 +45,5 @@ func reset():
 
 func _on_area_3d_body_entered(_body):
 	if !hit:
+		Score.event(score_event)
 		on_hit()

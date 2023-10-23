@@ -5,6 +5,7 @@ extends Node3D
 @onready var light = $Light
 @onready var reset_audio = $Reset_Audio
 @export var score_events := ["Drop Targets Reset"]
+signal test_complete
 
 var total_targets = 0
 var hit_targets = 0
@@ -35,6 +36,14 @@ func tick(tick_count):
 	light.toggle()
 	for i in range(targets.size()):
 		targets[i].tick(tick_count + i)
+
+
+func test():
+	for target in targets:
+		target.test()
+		await target.test_complete
+		
+	emit_signal("test_complete")
 
 
 func reset_all_targets(play_sound := true):

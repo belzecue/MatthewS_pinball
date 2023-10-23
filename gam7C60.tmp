@@ -1,7 +1,6 @@
 [gd_scene load_steps=104 format=3 uid="uid://dkdinvtxg00hn"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_x6knr"]
-[ext_resource type="AudioStream" uid="uid://bu1pbut7lkljq" path="res://assets/sounds/SOUND1_Long.wav" id="2_1agvs"]
 [ext_resource type="PhysicsMaterial" uid="uid://clr7ekv22rbq3" path="res://assets/materials/ball_phymat.tres" id="2_jyjwa"]
 [ext_resource type="Script" path="res://Ball.gd" id="3_524w4"]
 [ext_resource type="AudioStream" uid="uid://cf16pmopwslbg" path="res://assets/sounds/SOUND4.WAV" id="3_oyw5e"]
@@ -31,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://bpwq1dboxy6y4" path="res://other_components/wall_one_way.tscn" id="19_4y4h5"]
 [ext_resource type="PackedScene" uid="uid://41rbxw84k3fh" path="res://targets/scoop.tscn" id="20_x6vd1"]
 [ext_resource type="Script" path="res://targets/standup_target_bank.gd" id="22_ydxux"]
+[ext_resource type="AudioStream" uid="uid://d5iiooyhmixk" path="res://assets/sounds/SOUND1.WAV" id="23_so7se"]
 [ext_resource type="PackedScene" uid="uid://ycxwk4nvyy0d" path="res://targets/kicker_l.tscn" id="26_rigd4"]
 [ext_resource type="AudioStream" uid="uid://bkmv01ayflv2j" path="res://assets/sounds/SOUND50.WAV" id="27_elbxm"]
 [ext_resource type="PackedScene" uid="uid://cj4xpnevco0bk" path="res://targets/kicker_r.tscn" id="27_odqvy"]
@@ -265,7 +265,7 @@ current = true
 current = true
 
 [node name="BootSound" type="AudioStreamPlayer3D" parent="WorldThings"]
-stream = ExtResource("2_1agvs")
+stream = ExtResource("23_so7se")
 
 [node name="ServeSound" type="AudioStreamPlayer3D" parent="WorldThings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0, 7.1)

@@ -9,7 +9,9 @@ extends StaticBody3D
 @onready var target_hit_again := $Target_Hit_Again
 @onready var light := $Light
 @onready var twinkle_timer = $TwinkleTimer
+
 signal target_hit
+signal test_complete
 
 
 func _ready():
@@ -29,6 +31,13 @@ func tick(tick_count: int):
 		light.activate()
 	else:
 		light.deactivate()
+
+
+func test():
+	on_hit()
+	await animation_player.animation_finished
+	reset()
+	emit_signal("test_complete")
 
 
 func reset():

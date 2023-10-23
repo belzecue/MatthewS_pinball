@@ -7,6 +7,7 @@ extends AnimatableBody3D
 @onready var flip_sound = $Flip_Sound
 @onready var return_sound = $Return_Sound
 
+
 func _physics_process(delta):
 	if Global.tilt:
 		return

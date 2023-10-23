@@ -17,6 +17,22 @@ extends Node
 @onready var serve_light := $Lights/ServeLight
 @onready var screen: Screen = $Screen
 @onready var tick := $WorldThings/Tick
+@onready var boot_nodes := [
+	# Nodes from the bottom of the table to the top.
+	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,
+	$ScoreElements/Targets/Mission_Targets/Target5, $ScoreElements/Targets/Mission_Targets/Target6, $ScoreElements/Targets/Mission_Targets/Target7,
+	$"ScoreElements/Bumpers/Bumper-Small", $"ScoreElements/Bumpers/Bumper-Small2", $"ScoreElements/Bumpers/Bumper-Small3",
+	$ScoreElements/DropTargets/Booster_Targets, $ScoreElements/Targets/Space_Warp_Target, $ScoreElements/DropTargets/Medal_Targets,
+	$ScoreElements/Slingshots/WallSling1,
+	$ScoreElements/Targets/Left_Hazard_Targets/Target8, $ScoreElements/Targets/Left_Hazard_Targets/Target9, $ScoreElements/Targets/Left_Hazard_Targets/Target10,
+	$ScoreElements/DropTargets/Field_Multiplier_Targets,
+	$ScoreElements/Targets/Right_Hazard_Targets/Target2, $ScoreElements/Targets/Right_Hazard_Targets/Target3, $ScoreElements/Targets/Right_Hazard_Targets/Target4,
+	$ScoreElements/Slingshots/WallSling2, $ScoreElements/Targets/Space_Warp_Target,
+	$"ScoreElements/Bumpers/Bumper-Large", $"ScoreElements/Bumpers/Bumper-Large2", $"ScoreElements/Bumpers/Bumper-Large3",
+	$"ScoreElements/Targets/Fuel Targets/Target11", $"ScoreElements/Targets/Fuel Targets/Target12", $"ScoreElements/Targets/Fuel Targets/Target13", $"ScoreElements/Targets/Fuel Targets/Target14", $"ScoreElements/Targets/Fuel Targets/Target15",
+	$"ScoreElements/Bumpers/Bumper-Large4",
+	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,
+]
 
 var resetting := true
 var tick_count := 0
@@ -43,14 +59,25 @@ func boot():
 	if !Global.skip_intro:
 		if !Global.mute:
 			boot_sound.play()
-		await get_tree().create_timer(1).timeout
 		screen.text_mode = Screen.TEXT_TYPE.START
+		await get_tree().create_timer(1).timeout
 		screen.set_pattern("Vortex")
-		await get_tree().create_timer(4).timeout
+		await get_tree().create_timer(1).timeout
+		screen.text_mode = Screen.TEXT_TYPE.SELFTEST
+		self_test()
+		screen.text_mode = Screen.TEXT_TYPE.START
+		if !Global.mute:
+			await boot_sound.finished
 	logger.info("Game Start.")
 	Global.game_mode = Global.Mode.PLAYING
 	reset()
 	serve()
+
+
+func self_test():
+	for node in boot_nodes:
+		node.test()
+		await node.test_complete
 
 
 func serve():
