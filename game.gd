@@ -19,7 +19,8 @@ extends Node
 @onready var tick := $WorldThings/Tick
 @onready var boot_nodes := [
 	# Nodes from the bottom of the table to the top.
-	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,
+	$ScoreElements/Scoops/KickerL, $ScoreElements/Scoops/KickerR,
+	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR, $ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,
 	$ScoreElements/Targets/Mission_Targets/Target5, $ScoreElements/Targets/Mission_Targets/Target6, $ScoreElements/Targets/Mission_Targets/Target7,
 	$"ScoreElements/Bumpers/Bumper-Small", $"ScoreElements/Bumpers/Bumper-Small2", $"ScoreElements/Bumpers/Bumper-Small3",
 	$ScoreElements/DropTargets/Booster_Targets, $ScoreElements/Targets/Space_Warp_Target, $ScoreElements/DropTargets/Medal_Targets,
@@ -30,8 +31,7 @@ extends Node
 	$ScoreElements/Slingshots/WallSling2, $ScoreElements/Targets/Space_Warp_Target,
 	$"ScoreElements/Bumpers/Bumper-Large", $"ScoreElements/Bumpers/Bumper-Large2", $"ScoreElements/Bumpers/Bumper-Large3",
 	$"ScoreElements/Targets/Fuel Targets/Target11", $"ScoreElements/Targets/Fuel Targets/Target12", $"ScoreElements/Targets/Fuel Targets/Target13", $"ScoreElements/Targets/Fuel Targets/Target14", $"ScoreElements/Targets/Fuel Targets/Target15",
-	$"ScoreElements/Bumpers/Bumper-Large4",
-	$ScoreElements/Slingshots/SlingshotL, $ScoreElements/Slingshots/SlingshotR,	$ScoreElements/Slingshots/WallSling1, $ScoreElements/Slingshots/WallSling2
+	$"ScoreElements/Bumpers/Bumper-Large4"
 ]
 
 var resetting := true
@@ -119,7 +119,11 @@ func reset():
 func _input(event):
 	if (Global.game_mode == Global.Mode.GAMEOVER or Global.game_mode == Global.Mode.DEMO) and \
 		(event is InputEventJoypadButton or event is InputEventKey):
-		boot()
+		logger.info("Game Start.")
+		Global.game_mode = Global.Mode.PLAYING
+		Score.reset()
+		reset()
+		serve()
 	
 	if Global.debug_mode and event is InputEventMouseButton and event.pressed and event.button_index == 2:
 		var ray_from = camera.project_ray_origin(event.position)
@@ -156,6 +160,8 @@ func _on_gutter_body_entered(_body):
 		Score.add_ball()
 		if Score.is_game_over():
 			Global.game_mode = Global.Mode.GAMEOVER
+			if !Global.mute:
+				game_lost.play()
 			screen.text_mode = Screen.TEXT_TYPE.GAMEOVER
 			await get_tree().create_timer(10).timeout
 			if Global.game_mode == Global.Mode.GAMEOVER:

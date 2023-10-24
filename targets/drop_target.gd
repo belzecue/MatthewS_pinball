@@ -29,6 +29,7 @@ func tick(tick_count: int):
 
 func test():
 	animation_player.play("hit")
+	hit = true
 	light.activate()
 	if !Global.mute:
 		hit_audio.play()

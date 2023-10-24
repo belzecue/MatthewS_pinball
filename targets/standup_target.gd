@@ -35,9 +35,10 @@ func tick(tick_count: int):
 
 func test():
 	on_hit()
+	await get_tree().create_timer(0.1).timeout
+	emit_signal("test_complete")
 	await animation_player.animation_finished
 	reset()
-	emit_signal("test_complete")
 
 
 func reset():

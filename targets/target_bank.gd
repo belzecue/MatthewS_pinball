@@ -43,6 +43,7 @@ func test():
 		target.test()
 		await target.test_complete
 		
+	reset()
 	emit_signal("test_complete")
 
 

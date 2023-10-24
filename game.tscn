@@ -60,6 +60,7 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eh8r5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
 [sub_resource type="Sky" id="Sky_dfwyc"]
@@ -258,7 +259,7 @@ light_indirect_energy = 0.0
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="WorldThings"]
-transform = Transform3D(1, 0, 0, 0, 0.398749, 0.91706, 0, -0.91706, 0.398749, 0, 9.59, 6.76)
+transform = Transform3D(1, 0, 0, 0, 0.398749, 0.91706, 0, -0.91706, 0.398749, 0, 9.54, 6.585)
 current = true
 
 [node name="AudioListener3D" type="AudioListener3D" parent="WorldThings/Camera3D"]

@@ -13,6 +13,9 @@ config_version=5
 config/name="Actually 3D Pinball"
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://assets/startup.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -126,3 +129,9 @@ common/physics_ticks_per_second=240
 common/max_physics_steps_per_frame=32
 3d/default_gravity=30.0
 3d/default_gravity_vector=Vector3(0, -1, 0.5)
+
+[rendering]
+
+anti_aliasing/quality/msaa_2d=3
+anti_aliasing/quality/msaa_3d=3
+anti_aliasing/quality/screen_space_aa=1
